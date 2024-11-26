@@ -1,7 +1,24 @@
+// src/app/page.js
+import Slideshow from "../components/Slideshow";
+import Sidebar from "../components/Sidebar";
+import PollSidebar from "../components/PollSidebar";
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-gray-100">
-      <h1 className="text-4xl font-bold text-blue-500">Welcome to AMF</h1>
-    </main>
+    <div className="flex flex-col md:flex-row space-x-4 px-4 py-6">
+      <div className="flex-1">
+        <Slideshow />
+      </div>
+
+      <div className="flex flex-col md:flex-row space-x-4">
+        <div className="md:w-1/4">
+          <Sidebar />
+        </div>
+
+        <div className="md:w-1/4">
+          <PollSidebar />
+        </div>
+      </div>
+    </div>
   );
 }
