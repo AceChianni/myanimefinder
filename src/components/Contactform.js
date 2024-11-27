@@ -1,5 +1,5 @@
-"use client";
 import { useState } from "react";
+import styles from "../styles/contactstyles.module.css";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -28,7 +28,7 @@ export default function ContactForm() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          to: "your-email@example.com", // Update this to your email address
+          to: "your-email@example.com",
           subject: "Contact Form Submission",
           html: `
             <p><strong>Name:</strong> ${formData.name}</p>
@@ -40,10 +40,10 @@ export default function ContactForm() {
       });
 
       if (response.ok) {
-        setIsPopupVisible(true); // Show the success popup
-        setFormData({ name: "", email: "", phone: "", message: "" }); // Reset the form
+        setIsPopupVisible(true);
+        setFormData({ name: "", email: "", phone: "", message: "" });
         setTimeout(() => {
-          setIsPopupVisible(false); // Hide the popup after 3 seconds
+          setIsPopupVisible(false);
         }, 3000);
       } else {
         console.error("Failed to send email");
@@ -55,7 +55,7 @@ export default function ContactForm() {
 
   return (
     <div>
-      <form id="contactForm" onSubmit={handleSubmit}>
+      <form className={styles.contactForm} onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">Name:</label>
           <input

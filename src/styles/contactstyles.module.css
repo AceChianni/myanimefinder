@@ -1,0 +1,115 @@
+/* styles/contactstyles.module.css */
+
+/* Container: Ensure the form is centered and responsive */
+.container {
+  max-width: 600px;
+  margin: 80px auto 40px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Heading Style */
+.heading {
+  text-align: center;
+  font-size: 36px;
+  color: #ff9bec; /* pink */
+  margin-bottom: 20px;
+}
+
+/* Form container for better column layout */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Grouping form elements */
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Label styling */
+.label {
+  font-weight: bold;
+  color: #ff9bec; /* pink */
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+/* Inputs and textarea styling: Ensure full width with proper spacing */
+.inputText,
+.inputEmail,
+.inputTel,
+.textarea {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ae9bff; /* light purple */
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Button styling with smooth transition and proper spacing */
+.button {
+  padding: 12px 20px;
+  font-size: 16px;
+  background-color: #ff9bec; /* pink */
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: center;
+  margin-top: 20px;
+}
+
+.button:hover {
+  background-color: #5dd9c1; /* teal */
+}
+
+/* Popup Styling */
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-size: 18px;
+  color: #5b507a; /* purple */
+}
+
+.popup.visible {
+  display: block;
+}
+
+/* Ensure proper spacing and no squishing on smaller screens */
+@media (max-width: 768px) {
+  .container {
+    margin: 20px;
+    padding: 15px;
+  }
+
+  .heading {
+    font-size: 28px;
+    /* Slightly smaller heading for mobile */
+  }
+
+  /* Adjust button width on smaller screens */
+  .button {
+    width: 100%;
+    /* Full width on smaller screens */
+  }
+}
