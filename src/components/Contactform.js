@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import styles from "../styles/contactstyles.module.css";
 
@@ -54,11 +55,15 @@ export default function ContactForm() {
   };
 
   return (
-    <div>
-      <form className={styles.contactForm} onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">Name:</label>
+    <div className={styles.container}>
+      <h1 className={styles.heading}>Contact Us</h1>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="name">
+            Name:
+          </label>
           <input
+            className={styles.input}
             type="text"
             id="name"
             name="name"
@@ -67,9 +72,12 @@ export default function ContactForm() {
             required
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="email">
+            Email:
+          </label>
           <input
+            className={styles.input}
             type="email"
             id="email"
             name="email"
@@ -78,9 +86,12 @@ export default function ContactForm() {
             required
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="phone">Phone:</label>
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="phone">
+            Phone:
+          </label>
           <input
+            className={styles.input}
             type="tel"
             id="phone"
             name="phone"
@@ -89,9 +100,12 @@ export default function ContactForm() {
             required
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="message">Message:</label>
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="message">
+            Message:
+          </label>
           <textarea
+            className={styles.input}
             id="message"
             name="message"
             rows="4"
@@ -100,13 +114,13 @@ export default function ContactForm() {
             required
           ></textarea>
         </div>
-        <button type="submit" className="submit-button">
+        <button className={styles.button} type="submit">
           Submit ❤
         </button>
       </form>
 
       {isPopupVisible && (
-        <div id="popup" className="popup visible">
+        <div className={`${styles.popup} visible`}>
           <p>Thanks, someone will contact you soon.</p>
         </div>
       )}

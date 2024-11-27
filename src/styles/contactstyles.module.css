@@ -44,10 +44,8 @@
   font-size: 16px;
 }
 
-/* Inputs and textarea styling: Ensure full width with proper spacing */
-.inputText,
-.inputEmail,
-.inputTel,
+/* Styling for input and textarea elements */
+.input,
 .textarea {
   padding: 10px;
   font-size: 16px;
