@@ -1,0 +1,136 @@
+/* Basic Reset */
+.aboutContainer,
+.aboutContainer * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body and Container */
+.aboutContainer {
+  font-family: "Arial", sans-serif;
+  background-color: #ffe1b3; /* Peach background */
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  min-height: 100vh; /* Full viewport height */
+  overflow: hidden; /* Hide overflow content */
+  padding: 0; /* Ensure no extra padding around the container */
+  height: 100%; /* Ensure it takes the full height of the viewport */
+}
+
+/* Content container */
+.contentContainer {
+  background-color: rgba(234, 136, 224, 0.85); /* Light Purple background */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Full width of its parent */
+  max-width: 1200px; /* Max width for a wider container */
+  height: auto; /* Height adjusts based on content */
+  overflow: auto; /* Allow scrolling if content overflows */
+  padding: 30px;
+  position: relative; /* Ensure it's on top of anything else */
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+
+/* Header Styling */
+.title {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  color: #ff9bec; /* Pink */
+  font-weight: bold;
+  font-style: italic;
+  margin-bottom: 20px;
+  font-size: 36px; /* Increase font size for visibility */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Truncate text if it overflows */
+}
+
+/* Subtitle Styling */
+.subtitle {
+  color: #ff9bec; /* Pink */
+  font-weight: bold;
+  font-style: italic;
+  margin-bottom: 10px;
+  font-size: 28px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Truncate text if it overflows */
+}
+
+/* Paragraph Styling */
+.description {
+  line-height: 1.8;
+  font-size: 18px;
+  text-align: justify;
+  margin-bottom: 20px;
+  overflow: hidden; /* Prevent text overflow */
+  text-overflow: ellipsis; /* Truncate text if it's too long */
+  white-space: normal; /* Allow wrapping for text */
+  width: 90%; /* Make the paragraph a bit narrower inside the container */
+  margin-left: auto;
+  margin-right: auto; /* Center the paragraph within the content container */
+}
+
+/* List Styling - Ensure no bullets */
+.list {
+  list-style: none; /* Remove default bullet points */
+  padding: 0;
+  font-size: 18px;
+}
+
+.list li {
+  margin: 10px 0;
+}
+
+.list li::before {
+  content: "◆"; /* Diamond bullet */
+  margin-right: 8px;
+  color: #ff9bec; /* Pink */
+}
+
+/* Section Divider */
+.sectionDivider {
+  border: 0;
+  border-top: 1px solid #81d4fa; /* Light Blue */
+  text-align: center;
+  margin: 30px 0;
+  position: relative;
+}
+
+.sectionDivider::before {
+  content: "☾"; /* Crescent Moon Symbol */
+  font-size: 20px;
+  color: #81d4fa; /* Light Blue */
+  background-color: #ffffff; /* White */
+  padding: 0 10px;
+  position: relative;
+  top: -10px; /* Adjust position to overlap the line */
+}
+
+/* Media Query for Responsiveness */
+@media (max-width: 768px) {
+  .contentContainer {
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 28px; /* Smaller font size for mobile */
+  }
+
+  .subtitle {
+    font-size: 22px;
+  }
+
+  .list li {
+    font-size: 16px;
+  }
+
+  .description {
+    font-size: 16px;
+  }
+}
