@@ -1,18 +1,26 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 /* src/styles/globals.css */
-body {
-    font-family: 'Arial', sans-serif;
-}
-
-html {
-    height: 100%;
-}
 
 body {
-    min-height: 100%;
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
+  font-family: "Times New Roman", serif;
+  background-color: #87ceeb;
+}
+
+/* Set grid layout for the home page */
+main {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem;
+  padding-top: 6rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
+  max-width: 1200px;
+}
+
+@media (min-width: 1024px) {
+  main {
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: auto;
+  }
 }

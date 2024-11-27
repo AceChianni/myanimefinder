@@ -1,0 +1,113 @@
+/* src/styles/sidebars.module.css */
+
+/* General Sidebar Styles */
+.sidebar {
+  background-color: #98fb98; /* Sage green */
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  color: #333333;
+  font-family: "Times New Roman", serif;
+}
+
+/* Poll Sidebar Container */
+.pollSidebar {
+  background-color: #ff9e80;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  color: #333333;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between poll options */
+  font-family: Arial, sans-serif;
+}
+
+/* Poll Sidebar Title */
+.sidebarTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+  color: #000;
+}
+
+/* Poll Sidebar Options */
+.pollSidebarItem {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 12px; /* Space between options */
+  text-align: left;
+}
+
+.pollSidebarItem input {
+  margin-right: 10px; /* Space between the radio button and the label */
+}
+
+.pollSidebarItem label {
+  display: inline-block; /* Keep label inline with radio button */
+}
+
+/* Poll Sidebar Submit Button */
+.submitButton {
+  background-color: #f06292; /* Pink */
+  color: white;
+  font-weight: bold;
+  padding: 12px 30px;
+  border-radius: 25px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px; /* Add space from the poll options */
+  width: 100%;
+}
+
+.submitButton:hover {
+  background-color: #e91e63; /* Deep pink */
+}
+
+.submitButton:focus {
+  outline: none;
+}
+
+.pollSidebar button .heartIcon {
+  font-size: 1.5rem;
+  margin-right: 10px;
+}
+
+/* Voting Results Bar Chart */
+.pollSidebar .voteResult {
+  margin-top: 16px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.pollSidebar .voteChart {
+  margin-top: 20px;
+}
+
+.pollSidebar .voteBar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; /* Space between each result bar */
+}
+
+.pollSidebar .voteBar .bar {
+  background-color: #6da4fc; /* Blue */
+  color: black;
+  font-size: 0.9rem;
+  padding: 5px;
+  border-radius: 5px;
+  text-align: center;
+  width: 0;
+  height: 20px; /* Set a fixed height for bars to be visible */
+  margin-right: 10px; /* Add space between bars and the label */
+}
+
+/* Responsive adjustments */
+@media (min-width: 1024px) {
+  .pollSidebar {
+    padding: 30px;
+  }
+}

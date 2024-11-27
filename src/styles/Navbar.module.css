@@ -1,0 +1,41 @@
+.navbar {
+  background-color: #d597ffc1;
+  /* Lavender background */
+  padding: 1rem 2rem;
+  /* Space around the navbar items */
+  display: flex;
+  justify-content: center;
+  /* Center the items horizontally */
+  align-items: center;
+  /* Vertically align items (if needed) */
+  width: 100%;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* Optional shadow for better appearance */
+}
+
+.navbarLinks {
+  display: flex;
+  justify-content: space-around;
+  /* Space out the links evenly */
+  width: 100%;
+  max-width: 1200px;
+  /* Optional: Limit the width of the navbar */
+}
+
+.navbarItem {
+  color: #4B0082;
+  /* Indigo color for the links */
+  text-decoration: none;
+  /* Remove underline */
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  /* Space around each link */
+  transition: color 0.3s ease;
+  /* Smooth transition for hover effect */
+}
+
+.navbarItem:hover {
+  color: #FF9E80;
+  /* Peach color when hovered */
+}

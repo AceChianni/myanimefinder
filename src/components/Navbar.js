@@ -1,35 +1,27 @@
 "use client";
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import styles from "../styles/Navbar.module.css"; // Import the CSS Module
 
 const Navbar = () => {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true); // Once the component is mounted, update the state
-  }, []);
-
-  // Render nothing during SSR, or a loading state
-  if (!mounted) return null;
-
   return (
-    <nav className="bg-blue-600 text-white p-4">
-      <ul className="flex space-x-6">
-        <li>
-          <a href="/" className="hover:text-yellow-300">
-            Home
-          </a>
-        </li>
-        <li>
-          <a href="/about" className="hover:text-yellow-300">
-            About
-          </a>
-        </li>
-        <li>
-          <a href="/contact" className="hover:text-yellow-300">
-            Contact
-          </a>
-        </li>
-      </ul>
+    <nav className={styles.navbar}>
+      <div className={styles.navbarLinks}>
+        <Link href="/" className={styles.navbarItem}>
+          Home
+        </Link>
+        <Link href="/about" className={styles.navbarItem}>
+          About
+        </Link>
+        <Link href="/quiz" className={styles.navbarItem}>
+          Quiz
+        </Link>
+        <Link href="/top-anime" className={styles.navbarItem}>
+          Top Anime
+        </Link>
+        <Link href="/contact" className={styles.navbarItem}>
+          Contact
+        </Link>
+      </div>
     </nav>
   );
 };

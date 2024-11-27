@@ -2,6 +2,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { fetchTopAnime } from "../lib/fetchAnime";
+import styles from "../styles/Slideshow.module.css";
 
 const Slideshow = () => {
   const [animeList, setAnimeList] = useState([]);
@@ -25,13 +26,13 @@ const Slideshow = () => {
   if (animeList.length === 0) return <div>Loading...</div>;
 
   return (
-    <div className="w-full max-w-4xl mx-auto relative">
+    <div className={styles.slideshowContainer}>
       <img
         src={animeList[currentIndex].images.webp.large_image_url}
         alt={animeList[currentIndex].title}
-        className="w-full h-96 object-cover rounded-lg"
+        className={styles.slideshowImage}
       />
-      <div className="absolute bottom-4 left-4 text-white font-semibold bg-black bg-opacity-50 p-2 rounded-md">
+      <div className={styles.slideshowCaption}>
         {animeList[currentIndex].title}
       </div>
     </div>
