@@ -1,19 +1,18 @@
-/* styles/contactstyles.module.css */
-
 /* Container: Ensure the form is centered and responsive */
-.container {
-  max-width: 600px;
-  margin: 80px auto 40px;
+.contactFormContainer {
+  max-width: 600px; /* Maximum width for the form */
+  margin: 80px auto 40px; /* Center the form with top and bottom margins */
   padding: 20px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
   box-sizing: border-box;
+  overflow: hidden; /* Ensures no elements spill out */
 }
 
 /* Heading Style */
-.heading {
+.contactFormHeading {
   text-align: center;
   font-size: 36px;
   color: #ff9bec; /* pink */
@@ -21,32 +20,33 @@
 }
 
 /* Form container for better column layout */
-.form {
+.contactForm {
   display: flex;
   flex-direction: column;
   gap: 20px;
   width: 100%;
   box-sizing: border-box;
+  justify-content: center;
 }
 
 /* Grouping form elements */
-.formGroup {
+.contactFormGroup {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
 /* Label styling */
-.label {
+.contactFormLabel {
   font-weight: bold;
   color: #ff9bec; /* pink */
   margin-bottom: 5px;
   font-size: 16px;
 }
 
-/* Styling for input and textarea elements */
-.input,
-.textarea {
+/* Inputs and textarea styling: Ensure full width with proper spacing */
+.contactFormInput,
+.contactFormTextarea {
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ae9bff; /* light purple */
@@ -56,7 +56,7 @@
 }
 
 /* Button styling with smooth transition and proper spacing */
-.button {
+.contactFormButton {
   padding: 12px 20px;
   font-size: 16px;
   background-color: #ff9bec; /* pink */
@@ -67,14 +67,15 @@
   transition: background-color 0.3s ease;
   align-self: center;
   margin-top: 20px;
+  width: auto;
 }
 
-.button:hover {
+.contactFormButton:hover {
   background-color: #5dd9c1; /* teal */
 }
 
 /* Popup Styling */
-.popup {
+.contactFormPopup {
   display: none;
   position: fixed;
   top: 50%;
@@ -89,25 +90,48 @@
   color: #5b507a; /* purple */
 }
 
-.popup.visible {
+.contactFormPopupVisible {
   display: block;
 }
 
 /* Ensure proper spacing and no squishing on smaller screens */
 @media (max-width: 768px) {
-  .container {
+  .contactFormContainer {
     margin: 20px;
     padding: 15px;
+    width: 100%; /* Allow full-width on small screens */
   }
 
-  .heading {
+  .contactFormHeading {
     font-size: 28px;
     /* Slightly smaller heading for mobile */
   }
 
   /* Adjust button width on smaller screens */
-  .button {
+  .contactFormButton {
     width: 100%;
     /* Full width on smaller screens */
+  }
+
+  /* Ensure inputs and textareas fill available width on small screens */
+  .contactFormInput,
+  .contactFormTextarea {
+    width: 100%; /* Ensure full width on smaller screens */
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .contactFormHeading {
+    font-size: 24px; /* Further reduce the heading size */
+  }
+
+  .contactFormInput,
+  .contactFormTextarea {
+    font-size: 14px; /* Slightly smaller text inside inputs */
+  }
+
+  .contactFormButton {
+    padding: 10px 15px; /* Slightly smaller button padding */
   }
 }
