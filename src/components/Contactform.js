@@ -55,72 +55,76 @@ import styles from "../styles/contactstyles.module.css";
 //   };
 
 //   return (
-//     <div className={styles.container}>
-//       <h1 className={styles.heading}>Contact Us</h1>
-//       <form className={styles.form} onSubmit={handleSubmit}>
-//         <div className={styles.formGroup}>
-//           <label className={styles.label} htmlFor="name">
-//             Name:
-//           </label>
-//           <input
-//             className={styles.input}
-//             type="text"
-//             id="name"
-//             name="name"
-//             value={formData.name}
-//             onChange={handleChange}
-//             required
-//           />
-//         </div>
-//         <div className={styles.formGroup}>
-//           <label className={styles.label} htmlFor="email">
-//             Email:
-//           </label>
-//           <input
-//             className={styles.input}
-//             type="email"
-//             id="email"
-//             name="email"
-//             value={formData.email}
-//             onChange={handleChange}
-//             required
-//           />
-//         </div>
-//         <div className={styles.formGroup}>
-//           <label className={styles.label} htmlFor="phone">
-//             Phone:
-//           </label>
-//           <input
-//             className={styles.input}
-//             type="tel"
-//             id="phone"
-//             name="phone"
-//             value={formData.phone}
-//             onChange={handleChange}
-//             required
-//           />
-//         </div>
-//         <div className={styles.formGroup}>
-//           <label className={styles.label} htmlFor="message">
-//             Message:
-//           </label>
-//           <textarea
-//             className={styles.input}
-//             id="message"
-//             name="message"
-//             rows="4"
-//             value={formData.message}
-//             onChange={handleChange}
-//             required
-//           ></textarea>
-//         </div>
-//         <button className={styles.button} type="submit">
-//           Submit ❤
-//         </button>
-//       </form>
+//     <div>
+//       <div className={styles.contactFormContainer}>
+//         <h1 className={styles.contactFormHeading}>Contact Us</h1>
+//         <form className={styles.contactForm} onSubmit={handleSubmit}>
+//           <div className={styles.contactFormGroup}>
+//             <label className={styles.contactFormLabel} htmlFor="name">
+//               Name:
+//             </label>
+//             <input
+//               className={styles.contactFormInput}
+//               type="text"
+//               id="name"
+//               name="name"
+//               value={formData.name}
+//               onChange={handleChange}
+//               required
+//             />
+//           </div>
+//           <div className={styles.contactFormGroup}>
+//             <label className={styles.contactFormLabel} htmlFor="email">
+//               Email:
+//             </label>
+//             <input
+//               className={styles.contactFormInput}
+//               type="email"
+//               id="email"
+//               name="email"
+//               value={formData.email}
+//               onChange={handleChange}
+//               required
+//             />
+//           </div>
+//           <div className={styles.contactFormGroup}>
+//             <label className={styles.contactFormLabel} htmlFor="phone">
+//               Phone:
+//             </label>
+//             <input
+//               className={styles.contactFormInput}
+//               type="tel"
+//               id="phone"
+//               name="phone"
+//               value={formData.phone}
+//               onChange={handleChange}
+//               required
+//             />
+//           </div>
+//           <div className={styles.contactFormGroup}>
+//             <label className={styles.contactFormLabel} htmlFor="message">
+//               Message:
+//             </label>
+//             <textarea
+//               className={styles.contactFormTextarea}
+//               id="message"
+//               name="message"
+//               rows="4"
+//               value={formData.message}
+//               onChange={handleChange}
+//               required
+//             ></textarea>
+//           </div>
+//           <button className={styles.contactFormButton} type="submit">
+//             Submit ❤
+//           </button>
+//         </form>
+//       </div>
 
 //       {isPopupVisible && (
-//         <div className={`${styles.popup} visible`}>
+//         <div
+//           className={`${styles.contactFormPopup} ${styles.contactFormPopupVisible}`}
+//         >
 //           <p>Thanks, someone will contact you soon.</p>
 //         </div>
 //       )}
@@ -149,31 +153,25 @@ export default function ContactForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("/api/email", {
+      const response = await fetch("/lib/sendEmail", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          to: "your-email@example.com",
-          subject: "Contact Form Submission",
-          html: `
-            <p><strong>Name:</strong> ${formData.name}</p>
-            <p><strong>Email:</strong> ${formData.email}</p>
-            <p><strong>Phone:</strong> ${formData.phone}</p>
-            <p><strong>Message:</strong> ${formData.message}</p>
-          `,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
         }),
       });
 
       if (response.ok) {
         setIsPopupVisible(true);
         setFormData({ name: "", email: "", phone: "", message: "" });
-        setTimeout(() => {
-          setIsPopupVisible(false);
-        }, 3000);
+        setTimeout(() => setIsPopupVisible(false), 3000);
       } else {
-        console.error("Failed to send email");
+        console.error("Failed to send email.");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -181,71 +179,63 @@ export default function ContactForm() {
   };
 
   return (
-    <div>
-      <div className={styles.contactFormContainer}>
+    <div className={styles.contactFormContainer}>
+      <form className={styles.contactForm} onSubmit={handleSubmit}>
         <h1 className={styles.contactFormHeading}>Contact Us</h1>
-        <form className={styles.contactForm} onSubmit={handleSubmit}>
-          <div className={styles.contactFormGroup}>
-            <label className={styles.contactFormLabel} htmlFor="name">
-              Name:
-            </label>
-            <input
-              className={styles.contactFormInput}
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className={styles.contactFormGroup}>
-            <label className={styles.contactFormLabel} htmlFor="email">
-              Email:
-            </label>
-            <input
-              className={styles.contactFormInput}
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className={styles.contactFormGroup}>
-            <label className={styles.contactFormLabel} htmlFor="phone">
-              Phone:
-            </label>
-            <input
-              className={styles.contactFormInput}
-              type="tel"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className={styles.contactFormGroup}>
-            <label className={styles.contactFormLabel} htmlFor="message">
-              Message:
-            </label>
-            <textarea
-              className={styles.contactFormTextarea}
-              id="message"
-              name="message"
-              rows="4"
-              value={formData.message}
-              onChange={handleChange}
-              required
-            ></textarea>
-          </div>
-          <button className={styles.contactFormButton} type="submit">
-            Submit ❤
-          </button>
-        </form>
-      </div>
+        <label className={styles.contactFormLabel} htmlFor="name">
+          Name:
+        </label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          className={styles.contactFormInput}
+          value={formData.name}
+          onChange={handleChange}
+          required
+        />
+        <label className={styles.contactFormLabel} htmlFor="email">
+          Email:
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          className={styles.contactFormInput}
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+        <label className={styles.contactFormLabel} htmlFor="phone">
+          Phone:
+        </label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          className={styles.contactFormInput}
+          value={formData.phone}
+          onChange={handleChange}
+          required
+        />
+        <label className={styles.contactFormLabel} htmlFor="message">
+          Message:
+        </label>
+        <div className={styles.formGroup}>
+          <textarea
+            id="message"
+            name="message"
+            rows="4"
+            className={styles.contactFormTextarea}
+            value={formData.message}
+            onChange={handleChange}
+            required
+          ></textarea>
+        </div>
+        <button type="submit" className={styles.contactFormButton}>
+          Submit ❤
+        </button>
+      </form>
 
       {isPopupVisible && (
         <div
