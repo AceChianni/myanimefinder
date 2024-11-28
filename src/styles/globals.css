@@ -23,6 +23,7 @@ main {
   padding-left: 4rem;
   padding-right: 4rem;
   max-width: 1200px;
+  margin: 0 auto;
 }
 
 html,
@@ -31,10 +32,15 @@ body {
   width: 100%;
 }
 
+@media (min-width: 768px) {
+  main {
+    grid-template-columns: repeat(2, 1fr); /* Two columns on medium screens */
+  }
+}
+
 @media (min-width: 1024px) {
   main {
-    grid-template-columns: 1fr 2fr 1fr;
-    /* grid-template-rows: auto; */
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 

@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+// src/components/AnimeRecs.js
 
-const AnimeRecommendations = () => {
+import React, { useState, useEffect } from "react";
+import styles from "../styles/animecard.module.css"; 
+
+const AnimeRecs = () => {  
   const [animeList, setAnimeList] = useState([]);
   const [error, setError] = useState(null);
-
-  useEffect(() => {
+useEffect(() => {
     const fetchAnime = async () => {
       try {
         const response = await fetch("https://api.jikan.moe/v4/top/anime");
@@ -18,23 +20,30 @@ const AnimeRecommendations = () => {
   }, []);
 
   return (
-    <div className="results-card">
-      <h3>Anime Recommendations</h3>
+    <div className={styles.cardContainer}> {/* Apply card container style */}
       {error && <p>{error}</p>}
-      <div className="anime-container">
-        {animeList.map((anime) => (
-          <div key={anime.mal_id} className="anime-item">
+      {animeList.map((anime) => (
+        <div key={anime.mal_id} className={styles.card}>
+          {/* Front of the card (image and title) */}
+          <div
+            className={styles.cardFront}
+            style={{
+              backgroundImage: `url(${anime.images.jpg.large_image_url})`,
+            }}
+          >
             <h3>{anime.title}</h3>
-            <img src={anime.images.jpg.large_image_url} alt={anime.title} />
+          </div>
+
+          {/* Back of the card (description) */}
+          <div className={styles.cardBack}>
             <p>{anime.synopsis || "No description available."}</p>
             <a href={anime.url} target="_blank" rel="noopener noreferrer">
               More Info
             </a>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 };
-
-export default AnimeRecommendations;
+export default AnimeRecs; 
