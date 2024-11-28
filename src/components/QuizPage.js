@@ -63,31 +63,47 @@ import styles from "../styles/quizstyles.module.css";
 
 //   const submitQuiz = async () => {
 //     setIsLoading(true);
+//     const genres = selectedAnswers.map((answer) => GENRE_IDS[answer]);
+//     const uniqueGenres = [...new Set(genres)];
 
-//     // Map selected answers to corresponding genre names
-//     const selectedGenres = selectedAnswers.map((answer) => GENRE_IDS[answer]);
+//     const query = `
+//       query ($genres: [String]) {
+//         Page(perPage: 5) {
+//           media(genre_in: $genres, type: ANIME, sort: POPULARITY_DESC) {
+//             title {
+//               romaji
+//             }
+//             coverImage {
+//               large
+//             }
+//             description
+//             siteUrl
+//           }
+//         }
+//       }`;
 
-//     // Use a Set to filter unique genres
-//     const uniqueGenres = [...new Set(selectedGenres)];
+//     const variables = { genres: uniqueGenres };
 
 //     try {
-//       // Build the query string with genre names
-//       const genresQuery = uniqueGenres.join(","); // Genres separated by commas
+//       const response = await fetch("https://graphql.anilist.co", {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({
+//           query,
+//           variables,
+//         }),
+//       });
 
-//       // Fetch anime recommendations from Jikan API based on selected genres
-//       const response = await fetch(
-//         `https://api.jikan.moe/v4/anime?genres=${genresQuery}&page=1`
-//       );
-
-//       // Parse the response and update the state with recommendations
-//       const data = await response.json();
-
-//       if (data.data && data.data.length > 0) {
-//         setRecommendations(data.data);
+//       const { data } = await response.json();
+//       if (data.Page.media.length > 0) {
+//         setRecommendations(data.Page.media);
 //       } else {
-//         setShowPopup(true);
+//         if (!showPopup) {
+//           setShowPopup(true);
+//         }
 //       }
-
 //       setQuizFinished(true);
 //     } catch (error) {
 //       console.error("Error fetching recommendations:", error);
@@ -105,11 +121,11 @@ import styles from "../styles/quizstyles.module.css";
 //   };
 
 //   return (
-//     <div className="quizContainer">
+//     <div className={styles.quizContainer}>
 //       {!quizFinished && questions[currentQuestion] && (
-//         <div className="quizCard">
+//         <div className={styles.quizCard}>
 //           <h2>{questions[currentQuestion].question}</h2>
-//           <div className="question">
+//           <div className={styles.question}>
 //             {questions[currentQuestion].options.map((option, index) => (
 //               <label key={index}>
 //                 <input
@@ -122,11 +138,11 @@ import styles from "../styles/quizstyles.module.css";
 //               </label>
 //             ))}
 //           </div>
-//           <div className="buttonContainer">
-//             <button className="resetButton" onClick={resetQuiz}>
+//           <div className={styles.buttonContainer}>
+//             <button className={styles.resetButton} onClick={resetQuiz}>
 //               Reset Quiz
 //             </button>
-//             <button className="nextButton" onClick={showNextQuestion}>
+//             <button className={styles.nextButton} onClick={showNextQuestion}>
 //               {currentQuestion < questions.length - 1
 //                 ? "Next Question"
 //                 : "Get Results"}
@@ -135,18 +151,25 @@ import styles from "../styles/quizstyles.module.css";
 //         </div>
 //       )}
 
-//       {/* Recommendations Section */}
 //       {quizFinished && !isLoading && (
-//         <div className="recommendations">
+//         <div className={styles.recommendations}>
 //           <h3>Recommended Shows</h3>
 //           {recommendations.length > 0 ? (
 //             <ul>
 //               {recommendations.map((show) => (
-//                 <li key={show.mal_id}>
-//                   <h4>{show.title}</h4>
-//                   <img src={show.images.jpg.image_url} alt={show.title} />
-//                   <p>{show.synopsis}</p>
-//                   <a href={show.url} target="_blank" rel="noopener noreferrer">
+//                 <li key={show.id}>
+//                   <h4>{show.title.romaji}</h4>
+//                   {show.coverImage?.large ? (
+//                     <img src={show.coverImage.large} alt={show.title.romaji} />
+//                   ) : (
+//                     <p>No image available</p>
+//                   )}
+//                   <p>{show.description}</p>
+//                   <a
+//                     href={show.siteUrl}
+//                     target="_blank"
+//                     rel="noopener noreferrer"
+//                   >
 //                     More Info
 //                   </a>
 //                 </li>
@@ -157,6 +180,17 @@ import styles from "../styles/quizstyles.module.css";
 //           ) : (
 //             <p>Loading recommendations...</p>
 //           )}
+//         </div>
+//       )}
+
+//       {showPopup && (
+//         <div className={styles.popupAlert}>
+//           <h4>Oops! No More Recommendations</h4>
+//           <p>
+//             It looks like there are no more recommendations. Please try
+//             restarting the quiz.
+//           </p>
+//           <button onClick={() => setShowPopup(false)}>Close</button>
 //         </div>
 //       )}
 //     </div>
@@ -226,26 +260,47 @@ const QuizPage = ({ questions }) => {
 
   const submitQuiz = async () => {
     setIsLoading(true);
+    const genres = selectedAnswers.map((answer) => GENRE_IDS[answer]);
+    const uniqueGenres = [...new Set(genres)];
 
-    const selectedGenres = selectedAnswers.map((answer) => GENRE_IDS[answer]);
+    const query = `
+      query ($genres: [String]) {
+        Page(perPage: 5) {
+          media(genre_in: $genres, type: ANIME, sort: POPULARITY_DESC) {
+            title {
+              romaji
+            }
+            coverImage {
+              large
+            }
+            description
+            siteUrl
+          }
+        }
+      }`;
 
-    const uniqueGenres = [...new Set(selectedGenres)];
+    const variables = { genres: uniqueGenres };
 
     try {
-      const genresQuery = uniqueGenres.join(",");
+      const response = await fetch("https://graphql.anilist.co", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query,
+          variables,
+        }),
+      });
 
-      const response = await fetch(
-        `https://api.jikan.moe/v4/anime?genres=${genresQuery}&page=1`
-      );
-
-      const data = await response.json();
-
-      if (data.data && data.data.length > 0) {
-        setRecommendations(data.data);
+      const { data } = await response.json();
+      if (data.Page.media.length > 0) {
+        setRecommendations(data.Page.media);
       } else {
-        setShowPopup(true);
+        if (!showPopup) {
+          setShowPopup(true);
+        }
       }
-
       setQuizFinished(true);
     } catch (error) {
       console.error("Error fetching recommendations:", error);
@@ -299,11 +354,19 @@ const QuizPage = ({ questions }) => {
           {recommendations.length > 0 ? (
             <ul>
               {recommendations.map((show) => (
-                <li key={show.mal_id}>
-                  <h4>{show.title}</h4>
-                  <img src={show.images.jpg.image_url} alt={show.title} />
-                  <p>{show.synopsis}</p>
-                  <a href={show.url} target="_blank" rel="noopener noreferrer">
+                <li key={show.id}>
+                  <h4>{show.title.romaji}</h4>
+                  {show.coverImage?.large ? (
+                    <img src={show.coverImage.large} alt={show.title.romaji} />
+                  ) : (
+                    <p>No image available</p>
+                  )}
+                  <p>{show.description}</p>
+                  <a
+                    href={show.siteUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     More Info
                   </a>
                 </li>
@@ -314,6 +377,17 @@ const QuizPage = ({ questions }) => {
           ) : (
             <p>Loading recommendations...</p>
           )}
+        </div>
+      )}
+
+      {showPopup && (
+        <div className={styles.popupAlert}>
+          <h4>Oops! No More Recommendations</h4>
+          <p>
+            It looks like there are no more recommendations. Please try
+            restarting the quiz.
+          </p>
+          <button onClick={() => setShowPopup(false)}>Close</button>
         </div>
       )}
     </div>
