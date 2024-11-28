@@ -35,7 +35,10 @@ export default function Layout({ children }) {
             </aside>
           </main>
         ) : (
-          <main className="p-4 min-h-screen flex justify-center">{children}</main>
+          <main className="p-4 min-h-screen flex justify-center items-center">
+            {/* Apply a specific class for the card grid container */}
+            <div className="anime-card-grid">{children}</div>
+          </main>
         )}
       </body>
     </html>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "../styles/Sidebars.module.css";
 
 const PollSidebar = () => {
@@ -28,21 +28,15 @@ const PollSidebar = () => {
     if (selectedPoll !== null) {
       setSubmitted(true);
 
-      // Send the votes data to the backend (API)
+      // Mocking API submission logic
       try {
         const response = await fetch("/poll", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            votes,
-          }),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ votes }),
         });
 
-        if (response.ok) {
-          console.log("Votes submitted successfully");
-        } else {
+        if (!response.ok) {
           console.error("Failed to submit votes");
         }
       } catch (error) {
@@ -53,67 +47,61 @@ const PollSidebar = () => {
     }
   };
 
-  // Helper function to calculate percentage of votes
   const totalVotes = votes.reduce((acc, vote) => acc + vote, 0);
   const getPercentage = (votesForOption) =>
-    totalVotes > 0 ? (votesForOption / totalVotes) * 100 : 0;
+    totalVotes > 0 ? Math.round((votesForOption / totalVotes) * 100) : 0;
 
   return (
-    <div
-      className={styles.pollSidebar}
-      style={{ fontFamily: "Times New Roman, serif" }}
-    >
-      <div
-        className={styles.sidebarTitle}
-        style={{ fontFamily: "Comic Sans MS, cursive, sans-serif" }}
-      >
-        Choose Your Favorite Starter Anime!
-      </div>
-      <div className="flex flex-col">
-        {pollOptions.map((option, index) => (
-          <div key={option.id} className={styles.pollSidebarItem}>
-            <input
-              type="radio"
-              name="animePoll"
-              value={option.id}
-              checked={selectedPoll === option.id}
-              onChange={() => {
-                setSelectedPoll(option.id);
-                handleVote(index);
-              }}
-              className="mr-2"
-            />
-            <label>{option.label}</label>
-          </div>
-        ))}
-      </div>
-
-      <button
-        onClick={handleSubmit}
-        className={styles.submitButton}
-        style={{ fontFamily: "Comic Sans MS, cursive, sans-serif" }}
-      >
-        Submit
-      </button>
-
-      {/* Show results after submission */}
-      {submitted && (
+    <div className={styles.pollSidebar}>
+      {submitted ? (
+        // Render results after submission
         <div className={styles.voteResult}>
-          <h3>Poll Results</h3>
+          <h3 className={styles.sidebarTitle}>Poll Results</h3>
           <div className={styles.voteChart}>
             {pollOptions.map((option, index) => (
               <div key={index} className={styles.voteBar}>
+                <span className={`${styles.barLabel}`}>
+                  {option.label} ({votes[index]} votes)
+                </span>
                 <div
                   className={styles.bar}
                   style={{ width: `${getPercentage(votes[index])}%` }}
-                >
-                  {option.label} <br />
-                  <span>({votes[index]} votes)</span>
-                </div>
+                ></div>
               </div>
             ))}
           </div>
         </div>
+      ) : (
+        // Render poll before submission
+        <>
+          <div className={styles.sidebarTitle}>
+            Choose Your Favorite Starter Anime!
+          </div>
+          <div className="flex flex-col">
+            {pollOptions.map((option, index) => (
+              <div key={option.id} className={styles.pollSidebarItem}>
+                <input
+                  type="radio"
+                  name="animePoll"
+                  value={option.id}
+                  checked={selectedPoll === option.id}
+                  onChange={() => {
+                    setSelectedPoll(option.id);
+                    handleVote(index);
+                  }}
+                  className="mr-2"
+                />
+                <label>{option.label}</label>
+              </div>
+            ))}
+          </div>
+          <button
+            onClick={handleSubmit}
+            className={styles.submitButton}
+          >
+            Submit
+          </button>
+        </>
       )}
     </div>
   );

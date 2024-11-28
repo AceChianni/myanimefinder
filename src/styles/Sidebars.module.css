@@ -7,6 +7,26 @@
   color: #333333;
   font-family: "Times New Roman", serif;
 }
+.sidebar ul, 
+.sidebar ol { 
+  list-style: none; 
+  padding-left: 0; 
+  margin: 0;
+}
+
+.sidebar li {
+  padding: 5px 0; /* Optional: Add spacing between items */
+}
+/* General Sidebar Styles */
+.sidebar {
+  background-color: #98fb98;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  color: #333333;
+  font-family: "Times New Roman", serif;
+}
+
 
 /* Poll Sidebar Container */
 .pollSidebar {
@@ -35,20 +55,9 @@
   align-items: center;
   font-size: 1rem;
   margin-bottom: 12px;
-  text-align: left;
-  flex-wrap: wrap;
-}
-
-.pollSidebarItem input {
-  margin-right: 10px;
-}
-
-.pollSidebarItem label {
-  display: inline-block;
 }
 
 .submitButton {
-  font-family: "Comic Sans MS", cursive, sans-serif;
   background-color: #f06292;
   color: white;
   font-weight: bold;
@@ -57,27 +66,23 @@
   border: none;
   font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
   margin-top: 20px;
   width: 100%;
   text-align: center;
+  transition: background-color 0.3s ease;
 }
 
 .submitButton:hover {
   background-color: #e91e63;
 }
 
-/* 
+/* Results Section */
 .voteResult {
   margin-top: 16px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 20px;
   text-align: center;
 }
 
 .voteChart {
-  margin-top: 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -85,93 +90,25 @@
 
 .voteBar {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-}
-
-.bar {
-  background-color: #6da4fc;
-  color: white;
-  font-size: 0.9rem;
-  padding: 5px 10px;
-  border-radius: 5px;
-  text-align: center;
-  height: 25px;
-  transition: width 0.5s ease-in-out;
-} */
-
-/* Poll Results Section */
-.voteResult {
-  margin-top: 16px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-  text-align: center;
-  line-height: 1.6;
-  /* More spacing between lines */
-}
-
-/* Chart container */
-.voteChart {
-  display: flex;
   flex-direction: column;
-  gap: 20px;
-  /* Increase spacing between each result row */
-}
-
-/* Individual bar container */
-.voteBar {
-  display: flex;
   align-items: flex-start;
-  /* Align items to the top */
-  gap: 15px;
-  /* Space between text and bars */
-  flex-wrap: wrap;
-  /* Allow text to wrap on smaller screens */
+  gap: 4px;
 }
 
-/* Bars representing votes */
-.bar {
-  background-color: #6da4fc;
-  color: white;
-  font-size: 0.9rem;
-  padding: 8px 12px;
-  /* Ensure internal text has padding */
-  border-radius: 5px;
-  text-align: center;
-  height: auto;
-  /* Allow height to adjust based on text */
-  min-width: 50px;
-  /* Avoid overly narrow bars */
-  transition: width 0.5s ease-in-out;
-  word-wrap: break-word;
-  /* Force wrapping of long text */
-  overflow: hidden;
-  /* Prevent content overflow */
-}
-
-/* Text outside of the bar */
 .barLabel {
   font-size: 1rem;
   color: #333;
-  flex-grow: 1;
-  /* Ensure text labels take up available space */
-  line-height: 1.6;
-  /* Space out text vertically */
+  text-align: left;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .voteChart {
-    gap: 15px;
-    /* Reduce gap on smaller screens */
-  }
-
-  .barLabel {
-    font-size: 0.9rem;
-    /* Reduce text size slightly */
-  }
+.bar {
+  background-color: #6da4fc;
+  color: white;
+  font-size: 0.9rem;
+  padding: 4px;
+  border-radius: 5px;
+  text-align: center;
+  height: 20px; /* Narrow bar height */
+  transition: width 0.5s ease-in-out;
+  max-width: 100%; /* Prevent overflow */
 }
