@@ -1,8 +1,8 @@
 // app/quiz/page.js
 "use client";
 import React from "react";
-import "../../styles/quizstyles.module.css";
-import QuizPage from "../../components/QuizPage.js";
+// import "../../styles/quizstyles.module.css";
+import QuizPage from "../../components/QuizPage";
 
 const questions = [
   {
