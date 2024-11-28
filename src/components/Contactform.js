@@ -155,15 +155,8 @@ export default function ContactForm() {
     try {
       const response = await fetch("/lib/sendEmail", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          message: formData.message,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
@@ -171,13 +164,12 @@ export default function ContactForm() {
         setFormData({ name: "", email: "", phone: "", message: "" });
         setTimeout(() => setIsPopupVisible(false), 3000);
       } else {
-        console.error("Failed to send email.");
+        console.error("Email sending failed.");
       }
     } catch (error) {
       console.error("Error:", error);
     }
   };
-
   return (
     <div className={styles.contactFormContainer}>
       <form className={styles.contactForm} onSubmit={handleSubmit}>

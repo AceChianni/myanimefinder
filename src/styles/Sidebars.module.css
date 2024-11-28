@@ -95,14 +95,14 @@
 
 .pollSidebar .voteBar .bar {
   background-color: #6da4fc; /* Blue */
-  color: black;
+  color: rgb(0, 0, 0);
   font-size: 0.9rem;
   padding: 5px;
   border-radius: 5px;
   text-align: center;
   width: 0;
   height: 20px; /* Set a fixed height for bars to be visible */
-  margin-right: 10px; /* Add space between bars and the label */
+  margin-right: 5px; /* Add space between bars and the label */
 }
 
 /* Responsive adjustments */
