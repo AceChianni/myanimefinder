@@ -1,5 +1,5 @@
 "use client";
-import styles from "../styles/sidebars.module.css";
+import styles from '../../styles/sidebars.module.css';
 
 const Sidebar = () => (
   <div className={`${styles.sidebar}`}>
