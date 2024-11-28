@@ -1,8 +1,6 @@
-/* src/styles/sidebars.module.css */
-
 /* General Sidebar Styles */
 .sidebar {
-  background-color: #98fb98; /* Sage green */
+  background-color: #98fb98;
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -13,43 +11,45 @@
 /* Poll Sidebar Container */
 .pollSidebar {
   background-color: #ff9e80;
-  padding: 10px;
+  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   color: #333333;
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Space between poll options */
-  font-family: Arial, sans-serif;
+  gap: 20px;
+  font-family: "Times New Roman", serif;
 }
 
-/* Poll Sidebar Title */
 .sidebarTitle {
+  font-family: "Comic Sans MS", cursive, sans-serif;
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 16px;
   color: #000;
+  text-align: center;
 }
 
-/* Poll Sidebar Options */
 .pollSidebarItem {
-  display: block;
+  display: flex;
+  align-items: center;
   font-size: 1rem;
-  margin-bottom: 12px; /* Space between options */
+  margin-bottom: 12px;
   text-align: left;
+  flex-wrap: wrap;
 }
 
 .pollSidebarItem input {
-  margin-right: 10px; /* Space between the radio button and the label */
+  margin-right: 10px;
 }
 
 .pollSidebarItem label {
-  display: inline-block; /* Keep label inline with radio button */
+  display: inline-block;
 }
 
-/* Poll Sidebar Submit Button */
 .submitButton {
-  background-color: #f06292; /* Pink */
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  background-color: #f06292;
   color: white;
   font-weight: bold;
   padding: 12px 30px;
@@ -58,56 +58,120 @@
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-top: 20px; /* Add space from the poll options */
+  margin-top: 20px;
   width: 100%;
+  text-align: center;
 }
 
 .submitButton:hover {
-  background-color: #e91e63; /* Deep pink */
+  background-color: #e91e63;
 }
 
-.submitButton:focus {
-  outline: none;
-}
-
-.pollSidebar button .heartIcon {
-  font-size: 1.5rem;
-  margin-right: 10px;
-}
-
-/* Voting Results Bar Chart */
-.pollSidebar .voteResult {
+/* 
+.voteResult {
   margin-top: 16px;
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 20px;
+  text-align: center;
 }
 
-.pollSidebar .voteChart {
+.voteChart {
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.pollSidebar .voteBar {
+.voteBar {
   display: flex;
   align-items: center;
-  margin-bottom: 20px; /* Space between each result bar */
+  gap: 10px;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
-.pollSidebar .voteBar .bar {
-  background-color: #6da4fc; /* Blue */
-  color: rgb(0, 0, 0);
+.bar {
+  background-color: #6da4fc;
+  color: white;
   font-size: 0.9rem;
-  padding: 5px;
+  padding: 5px 10px;
   border-radius: 5px;
   text-align: center;
-  width: 0;
-  height: 20px; /* Set a fixed height for bars to be visible */
-  margin-right: 5px; /* Add space between bars and the label */
+  height: 25px;
+  transition: width 0.5s ease-in-out;
+} */
+
+/* Poll Results Section */
+.voteResult {
+  margin-top: 16px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  line-height: 1.6;
+  /* More spacing between lines */
+}
+
+/* Chart container */
+.voteChart {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  /* Increase spacing between each result row */
+}
+
+/* Individual bar container */
+.voteBar {
+  display: flex;
+  align-items: flex-start;
+  /* Align items to the top */
+  gap: 15px;
+  /* Space between text and bars */
+  flex-wrap: wrap;
+  /* Allow text to wrap on smaller screens */
+}
+
+/* Bars representing votes */
+.bar {
+  background-color: #6da4fc;
+  color: white;
+  font-size: 0.9rem;
+  padding: 8px 12px;
+  /* Ensure internal text has padding */
+  border-radius: 5px;
+  text-align: center;
+  height: auto;
+  /* Allow height to adjust based on text */
+  min-width: 50px;
+  /* Avoid overly narrow bars */
+  transition: width 0.5s ease-in-out;
+  word-wrap: break-word;
+  /* Force wrapping of long text */
+  overflow: hidden;
+  /* Prevent content overflow */
+}
+
+/* Text outside of the bar */
+.barLabel {
+  font-size: 1rem;
+  color: #333;
+  flex-grow: 1;
+  /* Ensure text labels take up available space */
+  line-height: 1.6;
+  /* Space out text vertically */
 }
 
 /* Responsive adjustments */
-@media (min-width: 1024px) {
-  .pollSidebar {
-    padding: 30px;
+@media (max-width: 768px) {
+  .voteChart {
+    gap: 15px;
+    /* Reduce gap on smaller screens */
+  }
+
+  .barLabel {
+    font-size: 0.9rem;
+    /* Reduce text size slightly */
   }
 }

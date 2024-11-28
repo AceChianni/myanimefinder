@@ -1,4 +1,4 @@
-/* Basic Reset */
+/* Reset and General Styles */
 .aboutContainer,
 .aboutContainer * {
   margin: 0;
@@ -6,166 +6,111 @@
   box-sizing: border-box;
 }
 
-/* Body and Container */
+/* Body Styling */
 .aboutContainer {
-  font-family: "Arial", sans-serif;
-  background-color: #ffe1b3;
-  /* Peach background */
   display: flex;
   justify-content: center;
-  /* Center content horizontally */
-  align-items: center;
-  /* Center content vertically */
-  min-height: 100vh;
-  /* Full viewport height */
-  height: 100%;
-  /* Full viewport height */
+  align-items: flex-start;
   width: 100%;
-  /* Full viewport width */
-  padding: 0;
-  /* Remove any padding */
+  min-height: 100vh;
+  background-color: #f5f5f5;
 }
 
-/* Content container */
+/* Main content container */
 .contentContainer {
   background-color: rgba(234, 136, 224, 0.85);
-  /* Light Purple background */
-  border-radius: 10px;
+  /* Light purple background */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  /* Make container take up 90% of the screen width */
+  width: 100%;
   max-width: 1200px;
-  /* Limit max width to 1200px */
-  height: auto;
-  /* Height adjusts based on content */
-  overflow: auto;
-  /* Allow scrolling if content overflows */
+  /* Max width for large screens */
+  min-width: 320px;
+  /* Prevents being too small on mobile */
   padding: 30px;
-  position: relative;
-  /* Ensure it's on top of anything else */
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  /* Align children elements at the top */
   text-align: center;
-  margin: 0;
-  /* Make sure the container is aligned with no extra margins */
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
-/* Header Styling */
-.title {
+/* Heading styles */
+.heading1 {
   font-family: "Comic Sans MS", cursive, sans-serif;
-  color: #ff9bec;
-  /* Pink */
+  color: #000000;
+  /* Text color */
   font-weight: bold;
   font-style: italic;
-  margin-bottom: 20px;
   font-size: 36px;
-  /* Increase font size for visibility */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  /* Truncate text if it overflows */
-}
-
-/* Subtitle Styling */
-.subtitle {
-  color: #ff9bec;
-  /* Pink */
-  font-weight: bold;
-  font-style: italic;
-  margin-bottom: 10px;
-  font-size: 28px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  /* Truncate text if it overflows */
-}
-
-/* Paragraph Styling */
-.description {
-  line-height: 1.8;
-  font-size: 18px;
-  text-align: justify;
   margin-bottom: 20px;
-  overflow: hidden;
-  /* Prevent text overflow */
-  text-overflow: ellipsis;
-  /* Truncate text if it's too long */
-  white-space: normal;
-  /* Allow wrapping for text */
+}
+
+.heading2 {
+  font-family: "Times New Roman", Times, serif;
+  color: #000000;
+  /* Text color */
+  font-weight: bold;
+  font-size: 28px;
+  margin: 20px 0;
+}
+
+/* Paragraph styles */
+.paragraph {
+  font-size: 18px;
+  line-height: 1.8;
+  text-align: center;
+  margin-bottom: 20px;
   width: 90%;
-  /* Make the paragraph a bit narrower inside the container */
   margin-left: auto;
   margin-right: auto;
-  /* Center the paragraph within the content container */
 }
 
-/* List Styling - Ensure no bullets */
+/* List styling - No bullets */
 .list {
   list-style: none;
-  /* Remove default bullet points */
   padding: 0;
-  font-size: 18px;
+  margin: 0;
 }
 
 .list li {
-  margin: 10px 0;
+  font-size: 18px;
+  margin: 15px 0;
+  font-weight: normal;
+  text-align: left;
 }
 
-.list li::before {
-  content: "◆";
-  /* Diamond bullet */
-  margin-right: 8px;
-  color: #ff9bec;
-  /* Pink */
+/* Bold text for specific parts */
+.boldText {
+  font-weight: bold;
+  color: #000000;
+  /* Bold text color */
 }
 
-/* Section Divider */
-.sectionDivider {
+/* Section divider */
+hr.sectionDivider {
   border: 0;
   border-top: 1px solid #81d4fa;
-  /* Light Blue */
-  text-align: center;
+  /* Light Blue color */
   margin: 30px 0;
-  position: relative;
 }
 
-.sectionDivider::before {
-  content: "☾";
-  /* Crescent Moon Symbol */
-  font-size: 20px;
-  color: #81d4fa;
-  /* Light Blue */
-  background-color: #ffffff;
-  /* White */
-  padding: 0 10px;
-  position: relative;
-  top: -10px;
-  /* Adjust position to overlap the line */
-}
-
-/* Media Query for Responsiveness */
+/* Responsive Design */
 @media (max-width: 768px) {
   .contentContainer {
     padding: 20px;
   }
 
-  .title {
+  .heading1 {
     font-size: 28px;
-    /* Smaller font size for mobile */
   }
 
-  .subtitle {
+  .heading2 {
     font-size: 22px;
   }
 
-  .list li {
+  .paragraph {
     font-size: 16px;
   }
 
-  .description {
+  .list li {
     font-size: 16px;
   }
 }

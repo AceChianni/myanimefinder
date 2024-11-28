@@ -1,7 +1,6 @@
-// // src/components/PollSidebar.js
-// "use client";
-// import React, { useState, useEffect } from "react";
-// import styles from "../styles/Sidebars.module.css";
+"use client";
+import React, { useState, useEffect } from "react";
+import styles from "../styles/Sidebars.module.css";
 
 // const PollSidebar = () => {
 //   const [selectedPoll, setSelectedPoll] = useState(null);
@@ -25,9 +24,30 @@
 //     }
 //   };
 
-//   const handleSubmit = () => {
+//   const handleSubmit = async () => {
 //     if (selectedPoll !== null) {
 //       setSubmitted(true);
+
+//       // Send the votes data to the backend (API)
+//       try {
+//         const response = await fetch("/poll", {
+//           method: "POST",
+//           headers: {
+//             "Content-Type": "application/json",
+//           },
+//           body: JSON.stringify({
+//             votes,
+//           }),
+//         });
+
+//         if (response.ok) {
+//           console.log("Votes submitted successfully");
+//         } else {
+//           console.error("Failed to submit votes");
+//         }
+//       } catch (error) {
+//         console.error("Error submitting votes:", error);
+//       }
 //     } else {
 //       alert("Please select an option before submitting.");
 //     }
@@ -88,10 +108,6 @@
 
 // export default PollSidebar;
 
-"use client";
-import React, { useState, useEffect } from "react";
-import styles from "../styles/Sidebars.module.css";
-
 const PollSidebar = () => {
   const [selectedPoll, setSelectedPoll] = useState(null);
   const [votes, setVotes] = useState([0, 0, 0, 0, 0, 0]); // Track votes for each option
@@ -143,12 +159,20 @@ const PollSidebar = () => {
     }
   };
 
-  // Calculate total votes
+  // Helper function to calculate percentage of votes
   const totalVotes = votes.reduce((acc, vote) => acc + vote, 0);
+  const getPercentage = (votesForOption) =>
+    totalVotes > 0 ? (votesForOption / totalVotes) * 100 : 0;
 
   return (
-    <div className={styles.pollSidebar}>
-      <div className={styles.sidebarTitle}>
+    <div
+      className={styles.pollSidebar}
+      style={{ fontFamily: "Times New Roman, serif" }}
+    >
+      <div
+        className={styles.sidebarTitle}
+        style={{ fontFamily: "Comic Sans MS, cursive, sans-serif" }}
+      >
         Choose Your Favorite Starter Anime!
       </div>
       <div className="flex flex-col">
@@ -170,7 +194,11 @@ const PollSidebar = () => {
         ))}
       </div>
 
-      <button onClick={handleSubmit} className={styles.submitButton}>
+      <button
+        onClick={handleSubmit}
+        className={styles.submitButton}
+        style={{ fontFamily: "Comic Sans MS, cursive, sans-serif" }}
+      >
         Submit
       </button>
 
@@ -179,13 +207,14 @@ const PollSidebar = () => {
         <div className={styles.voteResult}>
           <h3>Poll Results</h3>
           <div className={styles.voteChart}>
-            {votes.map((vote, index) => (
+            {pollOptions.map((option, index) => (
               <div key={index} className={styles.voteBar}>
                 <div
                   className={styles.bar}
-                  style={{ width: `${(vote / totalVotes) * 100}%` }}
+                  style={{ width: `${getPercentage(votes[index])}%` }}
                 >
-                  {pollOptions[index].label} ({vote} votes)
+                  {option.label} <br />
+                  <span>({votes[index]} votes)</span>
                 </div>
               </div>
             ))}
