@@ -35,7 +35,7 @@ export default function Layout({ children }) {
             </aside>
           </main>
         ) : (
-          <main className="p-4 min-h-screen">{children}</main>
+          <main className="p-4 min-h-screen flex justify-center">{children}</main>
         )}
       </body>
     </html>

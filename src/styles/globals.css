@@ -34,6 +34,12 @@ body {
 @media (min-width: 1024px) {
   main {
     grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: auto;
+    /* grid-template-rows: auto; */
   }
+}
+
+/* Override for non-home pages */
+main:not(:has(> section)) {
+  display: flex;
+  justify-content: center;
 }
