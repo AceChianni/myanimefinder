@@ -1,5 +1,6 @@
+// pages/api/sendEmail.js
 import { Resend } from "resend";
-import { EmailTemplate } from "../../components/EmailTemplate";
+import { EmailTemplate } from "../../src/components/EmailTemplate";
 import ReactDOMServer from "react-dom/server";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -17,10 +18,11 @@ export default async function handler(req, res) {
           message={message}
         />
       );
+      console.log("Form data:", { name, email, phone, message });
 
       const response = await resend.emails.send({
-        from: "Ace <chantricelacabe@gmail.com>", // Your sender email
-        to: [email], // Use the email entered by the user
+        from: "chantricelacabe@gmail.com", // verified sender
+        to: [email], // Send to the user's email or another email
         subject: "New Contact Form Submission",
         html: emailContent,
       });

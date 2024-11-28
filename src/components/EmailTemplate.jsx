@@ -1,6 +1,5 @@
 // components/EmailTemplate.jsx
 import React from "react";
-// components/EmailTemplate.js
 export const EmailTemplate = ({ name, email, phone, message }) => (
   <div>
     <h1>Contact Form Submission</h1>

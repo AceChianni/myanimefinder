@@ -153,7 +153,8 @@ export default function ContactForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("/lib/sendEmail", {
+      // Call the API route to send the email
+      const response = await fetch("/api/sendEmail", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
