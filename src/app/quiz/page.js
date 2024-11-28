@@ -1,8 +1,8 @@
 // app/quiz/page.js
 "use client";
 import React from "react";
-import "/styles/quizstyles.module.css";
-import QuizPage from "@/components/QuizPage";
+import "../../styles/quizstyles.module.css";
+import QuizPage from "../../components/QuizPage.js";
 
 const questions = [
   {
@@ -63,7 +63,7 @@ const questions = [
 
 export default function QuizPageWrapper() {
   return (
-    <div>
+    <div className={styles.quizContainer}>
       <QuizPage questions={questions} />
     </div>
   );
