@@ -241,3 +241,49 @@ Check out our Next.js deployment documentation for more details.
 - Begin styling the "Top Anime" page:
   - Ensure proper layout, responsive design, and thematic alignment with the streaming aesthetic.
   - Dynamically fetch and display top anime data from AniList API.
+
+## **Day 8 Log**
+
+### **Tasks Completed**
+
+- **Grid Layout and Card Display**:
+  - Implemented a grid layout for the homepage using CSS Grid to organize content in responsive columns.
+  - Styled the anime cards with hover effects and dynamic backgrounds to create a visually engaging experience.
+  - Adjusted the card layout to ensure it adapts to different screen sizes, ensuring usability across devices.
+  
+- **Responsive Design**:
+  - Ensured the grid layout adjusts based on the screen size, using `@media` queries for mobile, tablet, and desktop views.
+  - Styled the main content to fit within a max-width container, with appropriate margins and padding.
+  
+- **Dynamic Content**:
+  - Fetched data for anime cards and displayed it dynamically, ensuring the content loads as expected.
+  - Created a fallback for cases where no data is available, improving the overall user experience.
+
+### **Challenges and Solutions**
+
+- **Challenge**: 
+  - The grid layout did not display the content correctly on smaller screens.
+  - **Solution**: Used `grid-template-columns: repeat(auto-fill, minmax(250px, 1fr))` to ensure cards fill the available space and adjust dynamically based on the screen width.
+  
+- **Challenge**: 
+  - Cards were not centered properly within their grid cells.
+  - **Solution**: Applied `justify-items: center` to ensure the cards are centered within the grid layout.
+
+- **Challenge**: 
+  - Achieving a consistent card size while keeping the design responsive was tricky.
+  - **Solution**: Set a fixed height for cards, and adjusted their content dynamically to fit without breaking the layout.
+
+### **Learnings and Insights**
+
+- Gained a deeper understanding of CSS Grid and its ability to create flexible, responsive layouts.
+- Learned how to dynamically adjust grid layouts using `auto-fill` and `minmax` for better control over column sizes.
+- Improved skills in responsive design, ensuring components display well on different screen sizes.
+  
+### **Next Steps**
+
+- Tinker with the grid layout and card styles:
+  - Experiment with different grid configurations and card designs for a more polished look.
+  - Add more content and refine card hover effects for better interaction feedback.
+- Continue enhancing the homepage:
+  - Incorporate more dynamic content and ensure all sections are styled consistently.
+  - Refine the "Top Anime" page styling to align with the overall aesthetic.

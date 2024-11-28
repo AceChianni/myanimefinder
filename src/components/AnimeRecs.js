@@ -1,27 +1,36 @@
-// src/components/AnimeRecs.js
-
 import React, { useState, useEffect } from "react";
-import styles from "../styles/animecard.module.css"; 
+import styles from "../styles/animecard.module.css";
 
-const AnimeRecs = () => {  
+const AnimeRecs = () => {
   const [animeList, setAnimeList] = useState([]);
   const [error, setError] = useState(null);
-useEffect(() => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
     const fetchAnime = async () => {
       try {
         const response = await fetch("https://api.jikan.moe/v4/top/anime");
+        if (!response.ok) throw new Error("Failed to fetch anime.");
         const data = await response.json();
         setAnimeList(data.data.slice(0, 10)); // Fetch top 10 anime
       } catch (err) {
         setError("Failed to load anime recommendations.");
+      } finally {
+        setLoading(false);
       }
     };
+
     fetchAnime();
   }, []);
 
+  if (loading) {
+    return <p className="loading">Loading anime recommendations...</p>;
+  }
+
   return (
-    <div className={styles.cardContainer}> {/* Apply card container style */}
-      {error && <p>{error}</p>}
+    <div className={styles.cardContainer}>
+      {error && <p className="error">{error}</p>}
+      {animeList.length === 0 && !error && <p>No anime found.</p>}
       {animeList.map((anime) => (
         <div key={anime.mal_id} className={styles.card}>
           {/* Front of the card (image and title) */}
@@ -30,6 +39,8 @@ useEffect(() => {
             style={{
               backgroundImage: `url(${anime.images.jpg.large_image_url})`,
             }}
+            role="img"
+            aria-label={`Image of ${anime.title}`}
           >
             <h3>{anime.title}</h3>
           </div>
@@ -46,4 +57,5 @@ useEffect(() => {
     </div>
   );
 };
-export default AnimeRecs; 
+
+export default AnimeRecs;

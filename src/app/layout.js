@@ -1,4 +1,5 @@
 // src/app/layout.js
+
 "use client";
 import { usePathname } from "next/navigation";
 import Navbar from "../components/Navbar";
@@ -35,10 +36,7 @@ export default function Layout({ children }) {
             </aside>
           </main>
         ) : (
-          <main className="p-4 min-h-screen flex justify-center items-center">
-            {/* Apply a specific class for the card grid container */}
-            <div className="anime-card-grid">{children}</div>
-          </main>
+          <main className="p-4 min-h-screen">{children}</main>
         )}
       </body>
     </html>
