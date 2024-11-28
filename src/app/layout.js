@@ -18,7 +18,7 @@ export default function Layout({ children }) {
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Anime Finder</title>
+        <title>Anniime Finder</title>
       </head>
       <body className="bg-sky-blue text-gray-800 font-serif">
         <Navbar />

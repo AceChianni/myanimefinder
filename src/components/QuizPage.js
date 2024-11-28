@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import styles from "../styles/quizstyles.module.css";
+import Image from "next/image"; // Import Image component
 
 const GENRE_IDS = {
   Drama: "Drama",
@@ -158,7 +159,12 @@ const QuizPage = ({ questions }) => {
               {recommendations.map((show) => (
                 <li key={show.id}>
                   <h4>{show.title.romaji}</h4>
-                  <img src={show.coverImage.large} alt={show.title.romaji} />
+                  <Image
+                    src={show.coverImage.large}
+                    alt={show.title.romaji}
+                    width={300} // Set appropriate width and height
+                    height={450}
+                  />
                   <p>{show.description}</p>
                   <a
                     href={show.siteUrl}
@@ -193,4 +199,3 @@ const QuizPage = ({ questions }) => {
 };
 
 export default QuizPage;
-

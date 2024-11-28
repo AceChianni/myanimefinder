@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import styles from "../styles/Sidebars.module.css";
+import styles from "../styles/sidebars.module.css";
 
 const PollSidebar = () => {
   const [selectedPoll, setSelectedPoll] = useState(null);
