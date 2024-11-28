@@ -196,34 +196,48 @@ Check out our Next.js deployment documentation for more details.
 - Start exploring the Magic Link authentication feature for user sign-ins.
 - Continue refining styles and improving overall UI/UX consistency.
 
-## \***\*Day 6 Log\*\***
+## **Day 7 Log**
 
-### \***\*Tasks Completed\*\***
+### **Tasks Completed**
 
-- Integrated Resend API to implement functional email submission for the contact form.
-- Set up server-side email handling with a custom API route in Next.js (`/api/email`).
-- Enhanced contact form validation and feedback, ensuring a smoother user experience.
-- Tested email functionality with successful email delivery to the specified address.
-- Styled the contact form and popup for better user interaction and visibility.
+- **Quiz Page Enhancements**:
+  - Resolved list rendering warning by ensuring each child in a list has a unique `key` prop.
+  - Updated quiz functionality to address `HotReload` and state update issues.
+  - Improved the `QuizPage` component:
+    - Integrated genre-based mapping using `GENRE_IDS`.
+    - Created dynamic recommendations using AniList GraphQL API.
+    - Styled quiz options and result display to better align with streaming site aesthetics.
+    - Implemented error handling for empty recommendations.
 
-### \***\*Challenges and Solutions\*\***
+- **Recommendations Styling**:
+  - Designed results section to keep content visually separated from the navigation bar.
+  - Styled recommendations to mimic a streaming platform, ensuring each result is displayed in a clean, user-friendly card format.
 
-- **Challenge**: API request returning a 404 error for the `/api/email` route.
-  - **Solution**: Verified file structure in the `src/app/api/email/route.js` and ensured proper route configuration. Restarted the server to apply changes.
-- **Challenge**: Ensuring email sending functionality works properly and securely using the Resend API.
-  - **Solution**: Used environment variables to securely store the Resend API key and confirmed the correct email format for the "from" field.
-- **Challenge**: Ensuring proper error handling and user feedback in case of email failure.
-  - **Solution**: Implemented error handling in the API route to log errors and return meaningful responses to the frontend.
+### **Challenges and Solutions**
 
-### \***\*Learnings and Insights\*\***
+- **Challenge**: 
+  - List rendering warning in `QuizPage` component due to missing `key` props.
+  - **Solution**: Added unique `key` props for elements in the `recommendations` list and quiz options.
 
-- Gained hands-on experience with email APIs and integrating external services like Resend.
-- Strengthened knowledge of handling API requests and managing sensitive information securely in environment variables.
-- Improved ability to debug network-related issues by checking route paths and server configurations.
+- **Challenge**: 
+  - State update error while rendering caused by a conflict between `HotReload` and `QuizPage`.
+  - **Solution**: Ensured state updates occur only in appropriate lifecycle stages by wrapping all state modifications in event handlers.
 
-### \***\*Next Steps\*\***
+- **Challenge**: 
+  - Styling issues where recommendations overlapped the navigation bar.
+  - **Solution**: Used CSS adjustments, such as `z-index`, margins, and a grid layout, to confine results within a scrollable container below the navbar.
 
-- Test the contact form thoroughly to ensure it works across different environments (development, staging, production).
-- Continue refining the UI/UX for the contact form and popup.
-- Begin implementing Magic Link authentication for the contact form submission (if applicable).
-- Review overall error handling and implement any necessary improvements.
+### **Learnings and Insights**
+
+- Reinforced knowledge of React's `key` prop requirement for dynamically rendered lists.
+- Improved understanding of state management in React, especially in addressing errors caused by asynchronous updates.
+- Enhanced CSS skills to create streaming-site-inspired layouts and visually appealing UI components.
+
+### **Next Steps**
+
+- Continue working on the quiz page:
+  - Refine UI/UX for quiz options and recommendations.
+  - Enhance user feedback, including progress indicators and better error messages.
+- Begin styling the "Top Anime" page:
+  - Ensure proper layout, responsive design, and thematic alignment with the streaming aesthetic.
+  - Dynamically fetch and display top anime data from AniList API.

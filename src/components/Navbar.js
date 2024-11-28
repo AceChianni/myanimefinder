@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import styles from "../styles/Navbar.module.css"; // Import the CSS Module
+import styles from "../styles/Navbar.module.css"; 
 
 const Navbar = () => {
   return (
