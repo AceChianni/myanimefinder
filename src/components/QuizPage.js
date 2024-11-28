@@ -153,6 +153,8 @@
 
 // export default QuizPage;
 
+// NEXT ONE
+
 "use client";
 import React, { useState } from "react";
 import styles from "../styles/quizstyles.module.css";
