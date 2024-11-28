@@ -1,10 +1,17 @@
-/* src/styles/globals.css */
-
-body {
+/* Global Reset for margin, padding, and box-sizing */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+body {
   font-family: "Times New Roman", serif;
   background-color: #87ceeb;
+  height: 100%;
+  width: 100%;
 }
 
 /* Set grid layout for the home page */

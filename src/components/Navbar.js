@@ -15,7 +15,7 @@ const Navbar = () => {
         <Link href="/quiz" className={styles.navbarItem}>
           Quiz
         </Link>
-        <Link href="/top-anime" className={styles.navbarItem}>
+        <Link href="/anime" className={styles.navbarItem}>
           Top Anime
         </Link>
         <Link href="/contact" className={styles.navbarItem}>

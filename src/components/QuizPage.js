@@ -1,7 +1,7 @@
-// // components/QuizPage.js
-// "use client";
-// import React, { useState } from "react";
-// import styles from "../styles/quizstyles.module.css";
+"use client";
+import React, { useState } from "react";
+import styles from "../styles/quizstyles.module.css";
+
 // const GENRE_IDS = {
 //   Drama: "Drama",
 //   Comedy: "Comedy",
@@ -63,19 +63,31 @@
 
 //   const submitQuiz = async () => {
 //     setIsLoading(true);
-//     const genres = selectedAnswers.map((answer) => GENRE_IDS[answer]);
-//     const uniqueGenres = [...new Set(genres)];
+
+//     // Map selected answers to corresponding genre names
+//     const selectedGenres = selectedAnswers.map((answer) => GENRE_IDS[answer]);
+
+//     // Use a Set to filter unique genres
+//     const uniqueGenres = [...new Set(selectedGenres)];
 
 //     try {
+//       // Build the query string with genre names
+//       const genresQuery = uniqueGenres.join(","); // Genres separated by commas
+
+//       // Fetch anime recommendations from Jikan API based on selected genres
 //       const response = await fetch(
-//         `https://api.jikan.moe/v4/anime?genres=${uniqueGenres.join(",")}&page=1`
+//         `https://api.jikan.moe/v4/anime?genres=${genresQuery}&page=1`
 //       );
+
+//       // Parse the response and update the state with recommendations
 //       const data = await response.json();
+
 //       if (data.data && data.data.length > 0) {
 //         setRecommendations(data.data);
 //       } else {
 //         setShowPopup(true);
 //       }
+
 //       setQuizFinished(true);
 //     } catch (error) {
 //       console.error("Error fetching recommendations:", error);
@@ -93,9 +105,9 @@
 //   };
 
 //   return (
-//     <div className="quiz-container">
+//     <div className="quizContainer">
 //       {!quizFinished && questions[currentQuestion] && (
-//         <div className="quiz-card">
+//         <div className="quizCard">
 //           <h2>{questions[currentQuestion].question}</h2>
 //           <div className="question">
 //             {questions[currentQuestion].options.map((option, index) => (
@@ -110,41 +122,41 @@
 //               </label>
 //             ))}
 //           </div>
+//           <div className="buttonContainer">
+//             <button className="resetButton" onClick={resetQuiz}>
+//               Reset Quiz
+//             </button>
+//             <button className="nextButton" onClick={showNextQuestion}>
+//               {currentQuestion < questions.length - 1
+//                 ? "Next Question"
+//                 : "Get Results"}
+//             </button>
+//           </div>
 //         </div>
 //       )}
 
-//       {quizFinished && recommendations.length > 0 && (
-//         <div className="results-card">
-//           <h3 className="recommendations-title">Your Recommendations</h3>
-//           {recommendations.map((anime, index) => (
-//             <div className="anime-item" key={index}>
-//               <h3>{anime.title}</h3>
-//               <img src={anime.images.jpg.image_url} alt={anime.title} />
-//               <p>{anime.synopsis}</p>
-//               <a href={anime.url} target="_blank" rel="noopener noreferrer">
-//                 Go to site
-//               </a>
-//             </div>
-//           ))}
-//         </div>
-//       )}
-
-//       <div className="button-container">
-//         <button className="reset-button" onClick={resetQuiz}>
-//           Reset Quiz
-//         </button>
-//         <button className="next-button" onClick={showNextQuestion}>
-//           {currentQuestion < questions.length - 1
-//             ? "Next Question"
-//             : "Get Results"}
-//         </button>
-//       </div>
-
-//       {showPopup && (
-//         <div className="popup-alert active">
-//           <h4>No Recommendations</h4>
-//           <p>Try answering differently or restart the quiz.</p>
-//           <button onClick={() => setShowPopup(false)}>Close</button>
+//       {/* Recommendations Section */}
+//       {quizFinished && !isLoading && (
+//         <div className="recommendations">
+//           <h3>Recommended Shows</h3>
+//           {recommendations.length > 0 ? (
+//             <ul>
+//               {recommendations.map((show) => (
+//                 <li key={show.mal_id}>
+//                   <h4>{show.title}</h4>
+//                   <img src={show.images.jpg.image_url} alt={show.title} />
+//                   <p>{show.synopsis}</p>
+//                   <a href={show.url} target="_blank" rel="noopener noreferrer">
+//                     More Info
+//                   </a>
+//                 </li>
+//               ))}
+//             </ul>
+//           ) : showPopup ? (
+//             <p>No recommendations found based on your choices.</p>
+//           ) : (
+//             <p>Loading recommendations...</p>
+//           )}
 //         </div>
 //       )}
 //     </div>
@@ -152,12 +164,6 @@
 // };
 
 // export default QuizPage;
-
-// NEXT ONE
-
-"use client";
-import React, { useState } from "react";
-import styles from "../styles/quizstyles.module.css";
 
 const GENRE_IDS = {
   Drama: "Drama",
@@ -221,22 +227,17 @@ const QuizPage = ({ questions }) => {
   const submitQuiz = async () => {
     setIsLoading(true);
 
-    // Map selected answers to corresponding genre names
     const selectedGenres = selectedAnswers.map((answer) => GENRE_IDS[answer]);
 
-    // Use a Set to filter unique genres
     const uniqueGenres = [...new Set(selectedGenres)];
 
     try {
-      // Build the query string with genre names
-      const genresQuery = uniqueGenres.join(","); // Genres separated by commas
+      const genresQuery = uniqueGenres.join(",");
 
-      // Fetch anime recommendations from Jikan API based on selected genres
       const response = await fetch(
         `https://api.jikan.moe/v4/anime?genres=${genresQuery}&page=1`
       );
 
-      // Parse the response and update the state with recommendations
       const data = await response.json();
 
       if (data.data && data.data.length > 0) {
@@ -262,11 +263,11 @@ const QuizPage = ({ questions }) => {
   };
 
   return (
-    <div className="quizContainer">
+    <div className={styles.quizContainer}>
       {!quizFinished && questions[currentQuestion] && (
-        <div className="quizCard">
+        <div className={styles.quizCard}>
           <h2>{questions[currentQuestion].question}</h2>
-          <div className="question">
+          <div className={styles.question}>
             {questions[currentQuestion].options.map((option, index) => (
               <label key={index}>
                 <input
@@ -279,11 +280,11 @@ const QuizPage = ({ questions }) => {
               </label>
             ))}
           </div>
-          <div className="buttonContainer">
-            <button className="resetButton" onClick={resetQuiz}>
+          <div className={styles.buttonContainer}>
+            <button className={styles.resetButton} onClick={resetQuiz}>
               Reset Quiz
             </button>
-            <button className="nextButton" onClick={showNextQuestion}>
+            <button className={styles.nextButton} onClick={showNextQuestion}>
               {currentQuestion < questions.length - 1
                 ? "Next Question"
                 : "Get Results"}
@@ -292,9 +293,8 @@ const QuizPage = ({ questions }) => {
         </div>
       )}
 
-      {/* Recommendations Section */}
       {quizFinished && !isLoading && (
-        <div className="recommendations">
+        <div className={styles.recommendations}>
           <h3>Recommended Shows</h3>
           {recommendations.length > 0 ? (
             <ul>

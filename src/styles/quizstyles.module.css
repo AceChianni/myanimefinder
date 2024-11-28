@@ -1,0 +1,107 @@
+.quizContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 20px;
+  background-color: #81d4fa;
+}
+
+.quizCard {
+  width: 100%;
+  max-width: 800px;
+  background-color: rgb(239, 195, 129);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.quizCard h2 {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.question label {
+  display: block;
+  margin: 8px 0;
+  cursor: pointer;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+
+.nextButton {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  max-width: 150px;
+}
+
+.resetButton {
+  background-color: orange;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  max-width: 150px;
+}
+
+.resetButton:hover,
+.nextButton:hover {
+  background-color: #388e3c;
+}
+
+.recommendations {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.recommendations ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.recommendations li {
+  width: 100%;
+  max-width: 300px;
+  background-color: rgb(25, 216, 216);
+  margin-bottom: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.recommendations img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.recommendations a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.recommendations a:hover {
+  text-decoration: underline;
+}
