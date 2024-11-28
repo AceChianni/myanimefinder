@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { fetchTopAnime } from "../lib/fetchAnime";
 import styles from "../styles/slideshow.module.css";
+import Image from "next/image";
 
 const Slideshow = () => {
   const [animeList, setAnimeList] = useState([]);
@@ -25,13 +26,31 @@ const Slideshow = () => {
 
   if (animeList.length === 0) return <div>Loading...</div>;
 
+//   return (
+//     <div className={styles.slideshowContainer}>
+//       <img
+//         src={animeList[currentIndex].images.webp.large_image_url}
+//         alt={animeList[currentIndex].title}
+//         className={styles.slideshowImage}
+//       />
+//       <div className={styles.slideshowCaption}>
+//         {animeList[currentIndex].title}
+//       </div>
+//     </div>
+//   );
+// };
+
+
   return (
     <div className={styles.slideshowContainer}>
-      <img
+      {/* Replace <img> with <Image> */}
+      <Image
         src={animeList[currentIndex].images.webp.large_image_url}
         alt={animeList[currentIndex].title}
         className={styles.slideshowImage}
-      />
+        width={500} 
+        height={300} 
+        priority  />
       <div className={styles.slideshowCaption}>
         {animeList[currentIndex].title}
       </div>

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import styles from "../styles/quizstyles.module.css";
-import Image from "next/image"; // Import Image component
+import Image from "next/image";
 
 const GENRE_IDS = {
   Drama: "Drama",

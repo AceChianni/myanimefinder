@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
-// import "../../styles/globals.css";
-import ContactForm from "../../components/ContactForm.js";
+import ContactForm from "../../components/ContactForm";
 import styles from "../../styles/contactstyles.module.css";
 
 export default function ContactPage() {
