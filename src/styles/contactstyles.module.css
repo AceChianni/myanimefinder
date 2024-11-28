@@ -5,18 +5,17 @@
   align-items: center;
   height: 100vh;
   width: 100vw;
-  background-color: #87ceeb; /*  background */
-  padding: 20px;
-  padding-right: 40px;
+  background-color: #87ceeb;
+  /* Background color */
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 /* Form styling */
 .contactForm {
   width: 100%;
-  /* max-width: 500px; */
-  /* min-width: 300px; */
-  aspect-ratio: 1 / 1; /* Maintain square-like proportions */
+  max-width: 500px;
   padding: 30px;
   background-color: #fff;
   border-radius: 8px;
@@ -25,6 +24,7 @@
   flex-direction: column;
   gap: 15px;
   box-sizing: border-box;
+  height: auto;
 }
 
 /* Heading styling */
@@ -32,7 +32,8 @@
   text-align: center;
   font-size: 24px;
   font-weight: bold;
-  color: #ff9bec; /* pink */
+  color: #ff9bec;
+  /* Pink */
   margin-bottom: 10px;
 }
 
@@ -40,7 +41,8 @@
 .contactFormLabel {
   font-size: 16px;
   font-weight: bold;
-  color: #ae9bff; /* light purple */
+  color: #ae9bff;
+  /* Light purple */
 }
 
 /* Input and textarea styling */
@@ -48,7 +50,8 @@
 .contactFormTextarea {
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ae9bff; /* light purple */
+  border: 1px solid #ae9bff;
+  /* Light purple */
   border-radius: 4px;
   width: 100%;
   box-sizing: border-box;
@@ -57,18 +60,20 @@
 .contactMessageBox {
   padding: 10px;
   font-size: 12px;
-  border: 1px solid #ae9bff; /* Light purple */
+  border: 1px solid #ae9bff;
+  /* Light purple */
   border-radius: 4px;
   width: 100%;
   box-sizing: border-box;
-  /* resize: none; */
   height: 100px;
 }
+
 /* Button styling */
 .contactFormButton {
   padding: 12px 20px;
   font-size: 16px;
-  background-color: #ff9bec; /* pink */
+  background-color: #ff9bec;
+  /* Pink */
   color: #fff;
   border: none;
   border-radius: 50px;
@@ -78,7 +83,8 @@
 }
 
 .contactFormButton:hover {
-  background-color: #5dd9c1; /* teal */
+  background-color: #5dd9c1;
+  /* Teal */
 }
 
 /* Popup styling */
@@ -94,7 +100,8 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   font-size: 18px;
-  color: #5b507a; /* purple */
+  color: #5b507a;
+  /* Purple */
 }
 
 .contactFormPopupVisible {
@@ -104,8 +111,8 @@
 /* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
   .contactForm {
-    max-width: 90%; /* Shrink max width for smaller screens */
-    min-width: unset; /* Allow natural resizing */
-    aspect-ratio: auto; /* Remove fixed aspect ratio */
+    max-width: 90%;
+    /* Shrink max width for smaller screens */
+    min-width: unset;
   }
 }
