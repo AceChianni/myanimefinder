@@ -30,7 +30,7 @@ const PollSidebar = () => {
 
       // Mocking API submission logic
       try {
-        const response = await fetch("/poll", {
+        const response = await fetch("api/poll", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ votes }),
@@ -60,7 +60,7 @@ const PollSidebar = () => {
           <div className={styles.voteChart}>
             {pollOptions.map((option, index) => (
               <div key={index} className={styles.voteBar}>
-                <span className={`${styles.barLabel}`}>
+                <span className={styles.barLabel}>
                   {option.label} ({votes[index]} votes)
                 </span>
                 <div

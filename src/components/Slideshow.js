@@ -1,8 +1,8 @@
+// src/components/Slideshow.js
 "use client";
 import { useEffect, useState } from "react";
 import { fetchTopAnime } from "../lib/fetchAnime";
 import styles from "../styles/slideshow.module.css";
-import Image from "next/image"; // Import Image component
 
 const Slideshow = () => {
   const [animeList, setAnimeList] = useState([]);
@@ -27,12 +27,10 @@ const Slideshow = () => {
 
   return (
     <div className={styles.slideshowContainer}>
-      <Image
+      <img
         src={animeList[currentIndex].images.webp.large_image_url}
         alt={animeList[currentIndex].title}
         className={styles.slideshowImage}
-        width={800} // Set appropriate width and height
-        height={400}
       />
       <div className={styles.slideshowCaption}>
         {animeList[currentIndex].title}
