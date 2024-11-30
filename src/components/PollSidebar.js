@@ -1,6 +1,6 @@
 // src/components/PollSidebar.js
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "@/styles/sidebars.module.css";
 
 const PollSidebar = () => {
@@ -17,6 +17,27 @@ const PollSidebar = () => {
     { id: 6, label: "Other" },
   ];
 
+  useEffect(() => {
+    const fetchPollResults = async () => {
+      try {
+        const response = await fetch("/api/poll");
+        if (response.ok) {
+          const data = await response.json();
+          setVotes(data.votes || [0, 0, 0, 0, 0, 0]);
+        } else {
+          console.error("Failed to fetch poll results");
+        }
+      } catch (error) {
+        console.error("Error fetching poll results:", error);
+      }
+    };
+
+    // Fetch current votes when the component mounts or when the poll is submitted
+    if (submitted) {
+      fetchPollResults();
+    }
+  }, [submitted]);
+
   const handleVote = (index) => {
     if (!submitted) {
       const newVotes = [...votes];
@@ -29,9 +50,9 @@ const PollSidebar = () => {
     if (selectedPoll !== null) {
       setSubmitted(true);
 
-      // Mocking API submission logic
+      // Submit votes to the server
       try {
-        const response = await fetch("api/poll", {
+        const response = await fetch("/api/poll", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ votes }),
