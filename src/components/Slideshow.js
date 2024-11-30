@@ -1,8 +1,8 @@
 // src/components/Slideshow.js
 "use client";
 import { useEffect, useState } from "react";
-import { fetchTopAnime } from "../lib/fetchAnime";
-import styles from '../../styles/slideshow.module.css';
+import { fetchTopAnime } from "@/lib/fetchAnime";
+import styles from "@/styles/slideshow.module.css";
 import Image from "next/image";
 
 const Slideshow = () => {
