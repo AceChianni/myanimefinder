@@ -1,5 +1,5 @@
 // src/components/Slideshow.js
-"use client";
+// src/components/Slideshow.js
 import { useEffect, useState } from "react";
 import { fetchTopAnime } from "@/lib/fetchAnime";
 import styles from "@/styles/slideshow.module.css";
@@ -26,33 +26,21 @@ const Slideshow = () => {
 
   if (animeList.length === 0) return <div>Loading...</div>;
 
-//   return (
-//     <div className={styles.slideshowContainer}>
-//       <img
-//         src={animeList[currentIndex].images.webp.large_image_url}
-//         alt={animeList[currentIndex].title}
-//         className={styles.slideshowImage}
-//       />
-//       <div className={styles.slideshowCaption}>
-//         {animeList[currentIndex].title}
-//       </div>
-//     </div>
-//   );
-// };
-
-
   return (
     <div className={styles.slideshowContainer}>
-      {/* Replace <img> with <Image> */}
       <Image
-        src={animeList[currentIndex].images.webp.large_image_url}
-        alt={animeList[currentIndex].title}
+        src={
+          animeList[currentIndex]?.images?.webp?.large_image_url ||
+          "https://via.placeholder.com/500x300?text=No+Image+Available" // Placeholder image if no image URL is available
+        }
+        alt={animeList[currentIndex]?.title || "Anime Image"}
         className={styles.slideshowImage}
-        width={500} 
-        height={300} 
-        priority  />
+        width={500}
+        height={300}
+        priority
+      />
       <div className={styles.slideshowCaption}>
-        {animeList[currentIndex].title}
+        {animeList[currentIndex]?.title || "Loading..."}
       </div>
     </div>
   );
