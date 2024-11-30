@@ -1,44 +1,71 @@
 // pages/api/poll.js
-import { Redis } from "@upstash/redis"; // Use Upstash Redis client
+// import { incrementVote, getPollData, setPollData } from "@/lib/redis";
 
-// Initialize Redis client
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_URL,
-  token: process.env.UPSTASH_REDIS_TOKEN,
-});
+// export default async function handler(req, res) {
+//   try {
+//     if (req.method === "POST") {
+//       const { optionIndex } = req.body;
+
+//       if (typeof optionIndex !== "number") {
+//         throw new Error("Invalid or missing optionIndex in request body.");
+//       }
+
+//       const optionKey = `poll:option:${optionIndex}`;
+//       const newCount = await incrementVote(optionKey); // Increment vote count
+//       res.status(200).json({ success: true, newCount });
+//     } else if (req.method === "GET") {
+//       // Fetch all poll options and their counts
+//       const options = [0, 1, 2, 3, 4, 5];
+//       const votes = await Promise.all(
+//         options.map(async (option) => {
+//           const count = await getPollData(`poll:option:${option}`);
+//           return parseInt(count || "0", 10); // Default to 0 if null
+//         })
+//       );
+
+//       res.status(200).json({ votes });
+//     } else {
+//       res.setHeader("Allow", ["POST", "GET"]);
+//       res.status(405).json({ error: `Method ${req.method} not allowed.` });
+//     }
+//   } catch (error) {
+//     console.error("API error:", error.message); // Log error details
+//     res.status(500).json({ error: "Internal server error." });
+//   }
+// }
+
+// pages/api/poll.js
+import { incrementVote, getPollData } from "@/lib/redis";
 
 export default async function handler(req, res) {
-  if (req.method === "POST") {
-    const { votes } = req.body;
+  try {
+    if (req.method === "POST") {
+      const { optionIndex } = req.body;
 
-    if (!votes || votes.length === 0) {
-      return res.status(400).json({ error: "Votes data is missing or empty." });
-    }
-
-    try {
-      // Store votes in Redis
-      await redis.set("pollVotes", JSON.stringify(votes));
-
-      return res.status(200).json({ message: "Votes submitted successfully" });
-    } catch (error) {
-      console.error("Error saving votes to Redis:", error);
-      return res.status(500).json({ error: "Internal Server Error" });
-    }
-  } else if (req.method === "GET") {
-    try {
-      // Retrieve votes from Redis
-      const storedVotes = await redis.get("pollVotes");
-
-      if (!storedVotes) {
-        return res.status(404).json({ error: "Votes not found" });
+      if (typeof optionIndex !== "number") {
+        throw new Error("Invalid or missing optionIndex in request body.");
       }
 
-      return res.status(200).json({ votes: JSON.parse(storedVotes) });
-    } catch (error) {
-      console.error("Error retrieving votes from Redis:", error);
-      return res.status(500).json({ error: "Internal Server Error" });
+      const optionKey = `poll:option:${optionIndex}`;
+      const newCount = await incrementVote(optionKey); // Increment vote count
+      res.status(200).json({ success: true, newCount });
+    } else if (req.method === "GET") {
+      // Fetch all poll options and their counts
+      const options = [1, 2, 3, 4, 5, 6]; // Option IDs: 1 to 6
+      const votes = await Promise.all(
+        options.map(async (option) => {
+          const count = await getPollData(`poll:option:${option}`);
+          return parseInt(count || "0", 10); // Default to 0 if null
+        })
+      );
+
+      res.status(200).json({ votes });
+    } else {
+      res.setHeader("Allow", ["POST", "GET"]);
+      res.status(405).json({ error: `Method ${req.method} not allowed.` });
     }
-  } else {
-    return res.status(405).json({ error: "Method Not Allowed" });
+  } catch (error) {
+    console.error("API error:", error.message); // Log error details
+    res.status(500).json({ error: "Internal server error." });
   }
 }

@@ -5,7 +5,7 @@
 
 // const PollSidebar = () => {
 //   const [selectedPoll, setSelectedPoll] = useState(null);
-//   const [votes, setVotes] = useState([0, 0, 0, 0, 0, 0]); // Track votes for each option
+//   const [votes, setVotes] = useState([0, 0, 0, 0, 0, 0]); // Initialize votes
 //   const [submitted, setSubmitted] = useState(false);
 
 //   const pollOptions = [
@@ -17,6 +17,7 @@
 //     { id: 6, label: "Other" },
 //   ];
 
+//   // Fetch poll results
 //   useEffect(() => {
 //     const fetchPollResults = async () => {
 //       try {
@@ -25,48 +26,48 @@
 //           const data = await response.json();
 //           setVotes(data.votes || [0, 0, 0, 0, 0, 0]);
 //         } else {
-//           console.error("Failed to fetch poll results");
+//           console.error("Failed to fetch poll results:", await response.text());
 //         }
 //       } catch (error) {
 //         console.error("Error fetching poll results:", error);
 //       }
 //     };
 
-//     // Fetch current votes when the component mounts or when the poll is submitted
-//     if (submitted) {
-//       fetchPollResults();
-//     }
-//   }, [submitted]);
+//     fetchPollResults();
+//   }, [submitted]); // Refetch results when votes are submitted or reset
 
 //   const handleVote = (index) => {
 //     if (!submitted) {
-//       const newVotes = [...votes];
-//       newVotes[index] += 1; // Increment vote count for the selected option
-//       setVotes(newVotes);
+//       setSelectedPoll(index + 1); // Set selected option ID
 //     }
 //   };
 
 //   const handleSubmit = async () => {
 //     if (selectedPoll !== null) {
-//       setSubmitted(true);
-
-//       // Submit votes to the server
 //       try {
 //         const response = await fetch("/api/poll", {
 //           method: "POST",
 //           headers: { "Content-Type": "application/json" },
-//           body: JSON.stringify({ votes }),
+//           body: JSON.stringify({ optionIndex: selectedPoll }), // Corrected payload format
 //         });
 
-//         if (!response.ok) {
-//           console.error("Failed to submit votes");
+//         if (response.ok) {
+//           setSubmitted(true);
+//         } else {
+//           console.error("Failed to submit vote:", await response.text());
 //         }
 //       } catch (error) {
-//         console.error("Error submitting votes:", error);
+//         console.error("Error submitting vote:", error);
 //       }
 //     } else {
 //       alert("Please select an option before submitting.");
 //     }
+//   };
+
+//   const resetPoll = () => {
+//     setVotes([0, 0, 0, 0, 0, 0]);
+//     setSubmitted(false);
+//     setSelectedPoll(null);
 //   };
 
 //   const totalVotes = votes.reduce((acc, vote) => acc + vote, 0);
@@ -76,12 +77,11 @@
 //   return (
 //     <div className={styles.pollSidebar}>
 //       {submitted ? (
-//         // Render results after submission
 //         <div className={styles.voteResult}>
 //           <h3 className={styles.sidebarTitle}>Poll Results</h3>
 //           <div className={styles.voteChart}>
 //             {pollOptions.map((option, index) => (
-//               <div key={index} className={styles.voteBar}>
+//               <div key={option.id} className={styles.voteBar}>
 //                 <span className={styles.barLabel}>
 //                   {option.label} ({votes[index]} votes)
 //                 </span>
@@ -92,14 +92,16 @@
 //               </div>
 //             ))}
 //           </div>
+//           <button onClick={resetPoll} className={styles.resetButton}>
+//             Reset Poll
+//           </button>
 //         </div>
 //       ) : (
-//         // Render poll before submission
 //         <>
-//           <div className={styles.sidebarTitle}>
+//           <h3 className={styles.sidebarTitle}>
 //             Choose Your Favorite Starter Anime!
-//           </div>
-//           <div className="flex flex-col">
+//           </h3>
+//           <div>
 //             {pollOptions.map((option, index) => (
 //               <div key={option.id} className={styles.pollSidebarItem}>
 //                 <input
@@ -107,20 +109,14 @@
 //                   name="animePoll"
 //                   value={option.id}
 //                   checked={selectedPoll === option.id}
-//                   onChange={() => {
-//                     setSelectedPoll(option.id);
-//                     handleVote(index);
-//                   }}
+//                   onChange={() => handleVote(index)}
 //                   className="mr-2"
 //                 />
 //                 <label>{option.label}</label>
 //               </div>
 //             ))}
 //           </div>
-//           <button
-//             onClick={handleSubmit}
-//             className={styles.submitButton}
-//           >
+//           <button onClick={handleSubmit} className={styles.submitButton}>
 //             Submit
 //           </button>
 //         </>
@@ -130,24 +126,27 @@
 // };
 
 // export default PollSidebar;
+
+// src/components/PollSidebar.js
 "use client";
 import React, { useState, useEffect } from "react";
 import styles from "@/styles/sidebars.module.css";
 
 const PollSidebar = () => {
   const [selectedPoll, setSelectedPoll] = useState(null);
-  const [votes, setVotes] = useState([0, 0, 0, 0, 0, 0]); // Track votes for each option
+  const [votes, setVotes] = useState([0, 0, 0, 0, 0, 0]); // Initialize votes
   const [submitted, setSubmitted] = useState(false);
 
-  const pollOptions = [
-    { id: 1, label: "Naruto" },
-    { id: 2, label: "One Piece" },
-    { id: 3, label: "Attack on Titan" },
-    { id: 4, label: "Demon Slayer" },
-    { id: 5, label: "Pokemon" },
-    { id: 6, label: "Other" },
-  ];
+ const pollOptions = [
+  { id: 1, label: "Dragon Ball Z" },
+  { id: 2, label: "Pokemon" },
+  { id: 3, label: "Naruto" },
+  { id: 4, label: "One Piece" },
+  { id: 5, label: "Death Note" },
+  { id: 6, label: "Other" },
+];
 
+  // Fetch poll results
   useEffect(() => {
     const fetchPollResults = async () => {
       try {
@@ -156,44 +155,38 @@ const PollSidebar = () => {
           const data = await response.json();
           setVotes(data.votes || [0, 0, 0, 0, 0, 0]);
         } else {
-          console.error("Failed to fetch poll results");
+          console.error("Failed to fetch poll results:", await response.text());
         }
       } catch (error) {
         console.error("Error fetching poll results:", error);
       }
     };
 
-    // Fetch current votes when the component mounts or when the poll is submitted
-    if (submitted) {
-      fetchPollResults();
-    }
-  }, [submitted]);
+    fetchPollResults();
+  }, [submitted]); // Refetch results when votes are submitted or reset
 
   const handleVote = (index) => {
     if (!submitted) {
-      const newVotes = [...votes];
-      newVotes[index] += 1; // Increment vote count for the selected option
-      setVotes(newVotes);
+      setSelectedPoll(index + 1); // Set selected option ID
     }
   };
 
   const handleSubmit = async () => {
     if (selectedPoll !== null) {
-      setSubmitted(true);
-
-      // Submit votes to the server
       try {
         const response = await fetch("/api/poll", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ votes }),
+          body: JSON.stringify({ optionIndex: selectedPoll }), // Corrected payload format
         });
 
-        if (!response.ok) {
-          console.error("Failed to submit votes");
+        if (response.ok) {
+          setSubmitted(true);
+        } else {
+          console.error("Failed to submit vote:", await response.text());
         }
       } catch (error) {
-        console.error("Error submitting votes:", error);
+        console.error("Error submitting vote:", error);
       }
     } else {
       alert("Please select an option before submitting.");
@@ -201,9 +194,9 @@ const PollSidebar = () => {
   };
 
   const resetPoll = () => {
-    setVotes([0, 0, 0, 0, 0, 0]); // Reset votes
-    setSubmitted(false); // Allow the user to vote again
-    setSelectedPoll(null); // Reset the selected poll option
+    setVotes([0, 0, 0, 0, 0, 0]);
+    setSubmitted(false);
+    setSelectedPoll(null);
   };
 
   const totalVotes = votes.reduce((acc, vote) => acc + vote, 0);
@@ -213,12 +206,11 @@ const PollSidebar = () => {
   return (
     <div className={styles.pollSidebar}>
       {submitted ? (
-        // Render results after submission
         <div className={styles.voteResult}>
           <h3 className={styles.sidebarTitle}>Poll Results</h3>
           <div className={styles.voteChart}>
             {pollOptions.map((option, index) => (
-              <div key={index} className={styles.voteBar}>
+              <div key={option.id} className={styles.voteBar}>
                 <span className={styles.barLabel}>
                   {option.label} ({votes[index]} votes)
                 </span>
@@ -230,16 +222,15 @@ const PollSidebar = () => {
             ))}
           </div>
           <button onClick={resetPoll} className={styles.resetButton}>
-            Reset Quiz
+            Reset Poll
           </button>
         </div>
       ) : (
-        // Render poll before submission
         <>
-          <div className={styles.sidebarTitle}>
+          <h3 className={styles.sidebarTitle}>
             Choose Your Favorite Starter Anime!
-          </div>
-          <div className="flex flex-col">
+          </h3>
+          <div>
             {pollOptions.map((option, index) => (
               <div key={option.id} className={styles.pollSidebarItem}>
                 <input
@@ -247,20 +238,14 @@ const PollSidebar = () => {
                   name="animePoll"
                   value={option.id}
                   checked={selectedPoll === option.id}
-                  onChange={() => {
-                    setSelectedPoll(option.id);
-                    handleVote(index);
-                  }}
+                  onChange={() => handleVote(index)}
                   className="mr-2"
                 />
                 <label>{option.label}</label>
               </div>
             ))}
           </div>
-          <button
-            onClick={handleSubmit}
-            className={styles.submitButton}
-          >
+          <button onClick={handleSubmit} className={styles.submitButton}>
             Submit
           </button>
         </>
