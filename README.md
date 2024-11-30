@@ -10,7 +10,6 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 - **Sidebar**: Discover additional resources and links.
 - **Quiz**: Get personalized anime recommendations based on your answers.
 - **Contact Page**: Submit feedback or queries.
-- **Waifu Gallery**: Browse categorized anime character images.
 
 ## Getting Started
 
@@ -287,3 +286,57 @@ Check out our Next.js deployment documentation for more details.
 - Continue enhancing the homepage:
   - Incorporate more dynamic content and ensure all sections are styled consistently.
   - Refine the "Top Anime" page styling to align with the overall aesthetic.
+
+## **Day 9 Log**
+
+### **Tasks Completed**
+
+- **Poll Functionality with Persistent Data**:
+  - Implemented a persistent voting system using Redis (via Upstash) to store and retrieve poll data.
+  - Configured a backend API to handle poll submissions and retrieve stored votes, ensuring data is saved even after page reloads.
+  - Updated the poll options with the final text and ensured users could vote and view results seamlessly.
+  
+- **Slideshow Fixes**:
+  - Resolved issues with broken images in the slideshow by configuring Next.js to support external image sources, such as MyAnimeList's CDN.
+  - Implemented a fallback image in case the anime images fail to load.
+
+- **Poll Reset Button**:
+  - Added a "Reset Poll" button that appears once the results are shown, allowing users to clear their votes and start over.
+  - Implemented state management to track if the poll has been submitted, showing the reset button conditionally.
+
+### **Challenges and Solutions**
+
+- **Challenge**:
+  - Redis connection errors (`ECONNREFUSED`) while trying to save votes to the database.
+  - **Solution**: Verified Redis configuration, ensured the correct URL and password were used in `.env.local`, and switched to the `ioredis` client, which handles Redis connections more reliably.
+  
+- **Challenge**:
+  - Poll results not being persisted across sessions.
+  - **Solution**: Implemented Redis to store and retrieve vote counts, ensuring persistent data for users even after a page refresh.
+  
+- **Challenge**:
+  - Broken images in the slideshow due to an unconfigured external image source.
+  - **Solution**: Updated `next.config.js` to allow images from MyAnimeList's CDN and tested with external image URLs to confirm it worked properly.
+
+- **Challenge**:
+  - The "Reset Poll" button was not showing up correctly after voting.
+  - **Solution**: Used conditional rendering to ensure the reset button appeared only after the poll results were submitted, and added functionality to reset the vote state.
+
+### **Learnings and Insights**
+
+- Gained experience with persistent data storage using Redis and integrating it with Next.js.
+- Improved understanding of how to configure external image sources in Next.js and manage assets in a more efficient manner.
+- Learned the importance of conditional rendering in React to enhance user experience, particularly in handling UI elements like the reset button.
+- Deepened knowledge of managing state with hooks (`useState`, `useEffect`) for dynamic UI interactions like polling and slideshow updates.
+
+### **Next Steps**
+
+- Continue to refine the poll system:
+  - Add validation for duplicate votes and prevent users from voting more than once.
+  - Improve UI/UX of the voting process to make it more engaging (e.g., animations for submitting votes or viewing results).
+- Further optimize the slideshow:
+  - Add functionality for manual image navigation (e.g., "next" and "previous" buttons).
+  - Explore adding more features like captions or more detailed images.
+- Tinker with the poll reset functionality:
+  - Allow users to reset only the poll results or reset the poll entirely, including votes and UI.
+  - Improve backend logic to handle resetting data in Redis.
