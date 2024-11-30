@@ -1,9 +1,10 @@
+// pages/api/votes.js
 import { createClient } from '@upstash/redis';  
 
 // Initialize the Redis client
 const redis = createClient({
-  url: process.env.REDIS_URL,  
-  token: process.env.REDIS_TOKEN  
+  url: process.env.UPSTASH_REDIS_URL,  
+  token: process.env.UPSTASH_REDIS_TOKEN  
 });
 
 export default async function handler(req, res) {

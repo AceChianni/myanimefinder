@@ -112,3 +112,19 @@
   transition: width 0.5s ease-in-out;
   max-width: 100%; /* Prevent overflow */
 }
+
+/* reset button */
+.resetButton {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.resetButton:hover {
+  background-color: #e53935;
+}

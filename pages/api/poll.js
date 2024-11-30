@@ -1,17 +1,11 @@
 // pages/api/poll.js
-import { createClient } from "redis";
+import { Redis } from "@upstash/redis"; // Use Upstash Redis client
 
-// Create Redis client
-const redisClient = createClient({
+// Initialize Redis client
+const redis = new Redis({
   url: process.env.UPSTASH_REDIS_URL,
-  password: process.env.UPSTASH_REDIS_PASSWORD,
+  token: process.env.UPSTASH_REDIS_TOKEN,
 });
-
-redisClient.on("error", (err) => {
-  console.log("Redis Client Error", err);
-});
-
-await redisClient.connect(); // Make sure to connect to Redis
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
@@ -22,10 +16,9 @@ export default async function handler(req, res) {
     }
 
     try {
-      // Store votes in Redis (you can store them as a string or JSON)
-      await redisClient.set("pollVotes", JSON.stringify(votes));
+      // Store votes in Redis
+      await redis.set("pollVotes", JSON.stringify(votes));
 
-      // Respond to the client
       return res.status(200).json({ message: "Votes submitted successfully" });
     } catch (error) {
       console.error("Error saving votes to Redis:", error);
@@ -33,21 +26,19 @@ export default async function handler(req, res) {
     }
   } else if (req.method === "GET") {
     try {
-      // Retrieve the votes from Redis
-      const storedVotes = await redisClient.get("pollVotes");
+      // Retrieve votes from Redis
+      const storedVotes = await redis.get("pollVotes");
 
       if (!storedVotes) {
         return res.status(404).json({ error: "Votes not found" });
       }
 
-      // Parse and return the stored votes
       return res.status(200).json({ votes: JSON.parse(storedVotes) });
     } catch (error) {
       console.error("Error retrieving votes from Redis:", error);
       return res.status(500).json({ error: "Internal Server Error" });
     }
   } else {
-    // If the request method is not POST or GET, return 405 (Method Not Allowed)
     return res.status(405).json({ error: "Method Not Allowed" });
   }
 }

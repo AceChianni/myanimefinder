@@ -148,14 +148,13 @@ const PollSidebar = () => {
     { id: 6, label: "Other" },
   ];
 
-  // Fetch poll results from the backend when the component mounts or after submitting
   useEffect(() => {
     const fetchPollResults = async () => {
       try {
-        const response = await fetch("/api/votes");  // Correct API endpoint
+        const response = await fetch("/api/poll");
         if (response.ok) {
           const data = await response.json();
-          setVotes(data.votes || [0, 0, 0, 0, 0, 0]);  // Default to 0 if no votes exist
+          setVotes(data.votes || [0, 0, 0, 0, 0, 0]);
         } else {
           console.error("Failed to fetch poll results");
         }
@@ -164,8 +163,10 @@ const PollSidebar = () => {
       }
     };
 
-    // Fetch results when the component mounts or when submitted
-    fetchPollResults();
+    // Fetch current votes when the component mounts or when the poll is submitted
+    if (submitted) {
+      fetchPollResults();
+    }
   }, [submitted]);
 
   const handleVote = (index) => {
@@ -180,11 +181,12 @@ const PollSidebar = () => {
     if (selectedPoll !== null) {
       setSubmitted(true);
 
+      // Submit votes to the server
       try {
-        const response = await fetch("/api/votes", {  // Correct API endpoint
+        const response = await fetch("/api/poll", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ votes }),  // Send the current vote counts
+          body: JSON.stringify({ votes }),
         });
 
         if (!response.ok) {
@@ -196,6 +198,12 @@ const PollSidebar = () => {
     } else {
       alert("Please select an option before submitting.");
     }
+  };
+
+  const resetPoll = () => {
+    setVotes([0, 0, 0, 0, 0, 0]); // Reset votes
+    setSubmitted(false); // Allow the user to vote again
+    setSelectedPoll(null); // Reset the selected poll option
   };
 
   const totalVotes = votes.reduce((acc, vote) => acc + vote, 0);
@@ -221,6 +229,9 @@ const PollSidebar = () => {
               </div>
             ))}
           </div>
+          <button onClick={resetPoll} className={styles.resetButton}>
+            Reset Quiz
+          </button>
         </div>
       ) : (
         // Render poll before submission
