@@ -1,38 +1,39 @@
+// src/components/QuizPage.js
 "use client";
+
 import React, { useState } from "react";
 import styles from "../styles/quizstyles.module.css";
 import Image from "next/image";
 
 const GENRE_IDS = {
-  Drama: "Drama",
-  Comedy: "Comedy",
-  Action: "Action",
-  Fantasy: "Fantasy",
-  Romance: "Romance",
-  "Serious and deep": "Drama",
-  "Funny and quirky": "Comedy",
-  "Brave and adventurous": "Adventure",
-  "Magical and mystical": "Fantasy",
-  "Heartwarming and romantic": "Romance",
-  "Emotionally gripping": "Drama",
-  "Light-hearted and humorous": "Comedy",
-  "Full of thrilling battles": "Action",
-  "Involving supernatural elements": "Supernatural",
-  "Exploring futuristic concepts": "Sci-Fi",
-  "Urban cityscape": "Slice of Life",
-  "Rural countryside": "Slice of Life",
-  "Fantasy world": "Fantasy",
-  "Outer space": "Sci-Fi",
-  "Historical era": "Historical",
-  "A romantic getaway": "Romance",
-  "Serious and intense": "Drama",
-  "Light-hearted and fun": "Comedy",
-  "Mysterious and suspenseful": "Mystery",
-  "Whimsical and magical": "Fantasy",
-  "Futuristic and innovative": "Sci-Fi",
-  "Passionate and emotional": "Romance",
+  Drama: "1",
+  Comedy: "4",
+  Action: "2",
+  Fantasy: "10",
+  Romance: "22",
+  "Serious and deep": "1",
+  "Funny and quirky": "4",
+  "Brave and adventurous": "2",
+  "Magical and mystical": "10",
+  "Heartwarming and romantic": "22",
+  "Emotionally gripping": "1",
+  "Light-hearted and humorous": "4",
+  "Full of thrilling battles": "2",
+  "Involving supernatural elements": "8",
+  "Exploring futuristic concepts": "24",
+  "Urban cityscape": "6",
+  "Rural countryside": "6",
+  "Fantasy world": "10",
+  "Outer space": "24",
+  "Historical era": "23",
+  "A romantic getaway": "22",
+  "Serious and intense": "1",
+  "Light-hearted and fun": "4",
+  "Mysterious and suspenseful": "7",
+  "Whimsical and magical": "10",
+  "Futuristic and innovative": "24",
+  "Passionate and emotional": "22",
 };
-
 const QuizPage = ({ questions }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState([]);
@@ -75,11 +76,9 @@ const QuizPage = ({ questions }) => {
             title {
               romaji
             }
-            coverImage {
-              large
-            }
+            image_url  // Use Jikan's 'image_url' here
             description
-            siteUrl
+            url  // URL of the anime page
           }
         }
       }`;
@@ -87,20 +86,16 @@ const QuizPage = ({ questions }) => {
     const variables = { genres: uniqueGenres };
 
     try {
-      const response = await fetch("https://graphql.anilist.co", {
-        method: "POST",
+      const response = await fetch("https://api.jikan.moe/v4/anime", {
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          query,
-          variables,
-        }),
       });
 
-      const { data } = await response.json();
-      if (data.Page.media.length > 0) {
-        setRecommendations(data.Page.media);
+      const data = await response.json();
+      if (data.data.length > 0) {
+        setRecommendations(data.data);  
         setQuizFinished(true);
       } else {
         setShowPopup(true);
@@ -157,17 +152,21 @@ const QuizPage = ({ questions }) => {
           {recommendations.length > 0 ? (
             <ul>
               {recommendations.map((show) => (
-                <li key={show.id}>
-                  <h4>{show.title.romaji}</h4>
-                  <Image
-                    src={show.coverImage.large}
-                    alt={show.title.romaji}
-                    width={300} // Set appropriate width and height
-                    height={450}
-                  />
-                  <p>{show.description}</p>
+                <li key={show.mal_id}> 
+                  <h4>{show.title}</h4>
+                  {show.image_url ? (
+                    <Image
+                      src={show.image_url}
+                      alt={show.title}
+                      width={300}
+                      height={450}
+                    />
+                  ) : (
+                    <p>No image available</p> // Fallback if image_url is missing
+                  )}
+                  <p>{show.synopsis}</p>
                   <a
-                    href={show.siteUrl}
+                    href={show.url}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -189,7 +188,6 @@ const QuizPage = ({ questions }) => {
             It looks like there are no matches for your choices. Please restart
             the quiz and try different options.
           </p>
-          <button onClick={resetQuiz}>Restart Quiz</button>
         </div>
       )}
 
@@ -199,3 +197,4 @@ const QuizPage = ({ questions }) => {
 };
 
 export default QuizPage;
+
