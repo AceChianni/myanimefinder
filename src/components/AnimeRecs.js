@@ -1,61 +1,42 @@
-import React, { useState, useEffect } from "react";
-import styles from "../styles/animecard.module.css";
+// /components/AnimeRecs.js
+"use client";
 
-const AnimeRecs = () => {
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import HoverCard from "./HoverCard";
+
+export default function AnimeRecs() {
   const [animeList, setAnimeList] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchAnime = async () => {
-      try {
-        const response = await fetch("https://api.jikan.moe/v4/top/anime");
-        if (!response.ok) throw new Error("Failed to fetch anime.");
-        const data = await response.json();
-        setAnimeList(data.data.slice(0, 10)); // Fetch top 10 anime
-      } catch (err) {
-        setError("Failed to load anime recommendations.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchAnime();
+    fetch("https://api.jikan.moe/v4/top/anime?limit=12")
+      .then((res) => res.json())
+      .then((data) => setAnimeList(data?.data ?? []));
   }, []);
 
-  if (loading) {
-    return <p className="loading">Loading anime recommendations...</p>;
-  }
-
   return (
-    <div className={styles.cardContainer}>
-      {error && <p className="error">{error}</p>}
-      {animeList.length === 0 && !error && <p>No anime found.</p>}
+    <div className="flex flex-wrap justify-center gap-6 overflow-visible">
       {animeList.map((anime) => (
-        <div key={anime.mal_id} className={styles.card}>
-          {/* Front of the card (image and title) */}
-          <div
-            className={styles.cardFront}
-            style={{
-              backgroundImage: `url(${anime.images.jpg.large_image_url})`,
-            }}
-            role="img"
-            aria-label={`Image of ${anime.title}`}
-          >
-            <h3>{anime.title}</h3>
+        <div
+          key={anime.mal_id}
+          className="relative group overflow-visible cursor-pointer"
+        >
+          <div className="relative w-[150px] h-[230px] rounded-xl shadow-md hover:shadow-yellow-300/60 transition-all overflow-hidden">
+            <Image
+              src={anime.images?.jpg?.large_image_url}
+              alt={anime.title}
+              fill
+              className="object-cover rounded-xl"
+            />
           </div>
 
-          {/* Back of the card (description) */}
-          <div className={styles.cardBack}>
-            <p>{anime.synopsis || "No description available."}</p>
-            <a href={anime.url} target="_blank" rel="noopener noreferrer">
-              More Info
-            </a>
-          </div>
+          <p className="mt-2 text-center text-sm font-medium opacity-90 max-w-[150px] truncate">
+            {anime.title}
+          </p>
+
+          <HoverCard anime={anime} />
         </div>
       ))}
     </div>
   );
-};
-
-export default AnimeRecs;
+}

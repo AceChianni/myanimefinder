@@ -1,51 +1,41 @@
-/* Global Reset for margin, padding, and box-sizing */
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 200, 100, 0.6);
+  border-radius: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-body {
-  font-family: "Times New Roman", serif;
-  background-color: #87ceeb;
-  height: 100%;
-  width: 100%;
+/* Radiant Magic Float Animation */
+@keyframes sparkleFloat {
+  0%   { transform: translateY(0px) scale(1); }
+  50%  { transform: translateY(-6px) scale(1.035); }
+  100% { transform: translateY(0px) scale(1); }
 }
 
-/* Set grid layout for the home page */
-main {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 1rem;
-  padding-top: 6rem;
-  padding-left: 4rem;
-  padding-right: 4rem;
-  max-width: 1200px;
-  margin: 0 auto;
+/* Background star shimmer behind hover card */
+@keyframes starDrift {
+  0% { transform: translateY(0px) translateX(0px); opacity: 0.4; }
+  50% { transform: translateY(-12px) translateX(6px); opacity: 0.85; }
+  100% { transform: translateY(0px) translateX(0px); opacity: 0.4; }
 }
 
-html,
-body {
-  height: 100%;
-  width: 100%;
+/* Custom glowing scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
 }
 
-@media (min-width: 768px) {
-  main {
-    grid-template-columns: repeat(2, 1fr); /* Two columns on medium screens */
-  }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ffd97a, #ffb347);
+  border-radius: 999px;
 }
-
-@media (min-width: 1024px) {
-  main {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* Override for non-home pages */
-main:not(:has(> section)) {
-  display: flex;
-  justify-content: center;
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
 }
