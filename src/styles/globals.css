@@ -49,46 +49,42 @@ body {
 .rounded-organic {
   border-radius: 1.6rem 1.9rem 1.4rem 2rem;
 }
-
 /* --------------------------------------------------
-   🌸 Falling Petals
+   Floating Petals — Enhanced Ghibli Drift
 -------------------------------------------------- */
-.falling-layer {
+.petal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 200vh; /* covers beyond screen */
+  top: -12vh;
+  width: 14px;
+  height: 14px;
+  background: var(--accent);
+  opacity: 0.9;
+  border-radius: 60% 40% 70% 30%;
   pointer-events: none;
   z-index: 1;
-  overflow: hidden;
+  animation-name: petal-fall, petal-sway;
+  animation-timing-function: linear, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+  mix-blend-mode: luminosity;
 }
 
-.petal {
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  background: var(--accent);
-  border-radius: 50% 35% 65% 45%;
-  opacity: 0.75;
-  animation: fall 10s linear infinite, sway 4s ease-in-out infinite;
-}
-
+/* Dark mode glowing lilies */
 html.dark .petal {
   background: var(--accent);
   filter: drop-shadow(0 0 8px var(--accent));
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
-@keyframes fall {
-  0%   { transform: translateY(-10vh) rotate(0deg); opacity: .4; }
-  50%  { opacity: .9; }
-  100% { transform: translateY(120vh) rotate(140deg); opacity: .2; }
+/* Fall speed varies via inline style */
+@keyframes petal-fall {
+  0% { transform: translateY(-10vh) rotate(0deg); }
+  100% { transform: translateY(130vh) rotate(220deg); }
 }
 
-@keyframes sway {
-  0%,100% { transform: translateX(0px); }
-  50%     { transform: translateX(22px); }
+/* Sway motion with soft curve */
+@keyframes petal-sway {
+  0%, 100% { transform: translateX(0px); }
+  50% { transform: translateX(34px); }
 }
 
 /* --------------------------------------------------
@@ -123,6 +119,23 @@ html.dark .petal {
   0% { transform: translateY(0vh) translateX(0vw); }
   100% { transform: translateY(-20vh) translateX(8vw); }
 }
+
+.sparkle-layer {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background-image: radial-gradient(circle, var(--glow) 1px, transparent 1px);
+  background-size: 130px 130px;
+  opacity: 0.22;
+  animation: sparkle-shift 16s ease-in-out infinite alternate;
+}
+
+@keyframes sparkle-shift {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-50px); }
+}
+
 
 /* --------------------------------------------------
    Scrollbar

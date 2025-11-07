@@ -4,11 +4,10 @@ import { useEffect } from "react";
 
 export default function Fireflies() {
   useEffect(() => {
-    const count = 14; // number of fireflies
     const container = document.querySelector(".firefly-layer");
     if (!container) return;
 
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < 14; i++) {
       const f = document.createElement("div");
       f.className = "firefly";
       f.style.top = Math.random() * 100 + "vh";
@@ -18,5 +17,5 @@ export default function Fireflies() {
     }
   }, []);
 
-  return null;
+  return <div className="firefly-layer"></div>;
 }

@@ -4,7 +4,7 @@
 import { ThemeProvider } from "next-themes";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import PetalGenerator from "@/components/PetalsGenerator";
+import PetalsGenerator from "@/components/PetalsGenerator";
 import Fireflies from "@/components/Fireflies";
 import "@/styles/globals.css";
 
@@ -13,52 +13,50 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen flex flex-col bg-[var(--bg)] text-[var(--text)] transition-colors duration-700">
 
-  <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
 
-    {/* Floating BG Layers */}
-    <div className="falling-layer"></div>
-    <PetalGenerator />
+          {/* 🌸 Floating Environment Layers */}
+          <PetalsGenerator />
+          <Fireflies />
 
-    <div className="firefly-layer"></div>
-    <Fireflies />
+          {/* UI Layout */}
+          <Navbar />
+          <main className="flex-grow pt-32">{children}</main>
+          <Footer />
 
-    {/* Actual UI */}
-    <Navbar />
-    <main className="flex-grow pt-32 content-layer">{children}</main>
-    <Footer />
+        </ThemeProvider>
 
-  </ThemeProvider>
-</body>
-
+      </body>
     </html>
   );
 }
 
-
+// src/app/layout.js
 // "use client";
 
 // import { ThemeProvider } from "next-themes";
-// import { usePathname } from "next/navigation";
 // import Navbar from "@/components/Navbar";
+// import Footer from "@/components/Footer";
 // import "@/styles/globals.css";
 
 // export default function RootLayout({ children }) {
-//   const pathname = usePathname();
-//   const isHomePage = pathname === "/";
-
 //   return (
 //     <html lang="en" suppressHydrationWarning>
-//       <body className="transition-colors duration-500 bg-roseCream text-roseBrown dark:bg-twilight dark:text-starlight">
+//       <body className="min-h-screen flex flex-col bg-[var(--bg)] text-[var(--text)] transition-colors duration-700">
 //         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          
 //           <Navbar />
 
-//           {/* Page Content */}
-//           <main className={isHomePage ? "pt-32" : "pt-28"}>
+//           <main className="flex-grow pt-32">
 //             {children}
 //           </main>
+
+//           <Footer />
+
 //         </ThemeProvider>
 //       </body>
 //     </html>
 //   );
 // }
+
 
