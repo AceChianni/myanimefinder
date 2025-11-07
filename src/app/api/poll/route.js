@@ -1,27 +1,45 @@
-// /app/api/poll/route.js
+// src/app/api/poll/route.js
+import { NextResponse } from "next/server";
+import { redis } from "@/lib/redis";
 
-import { cookies } from "next/headers";
+const POLL_KEY = "poll:starter-anime";
 
-let votes = [5, 3, 8, 4, 6, 1]; // Default seed to avoid empty look
+const DEFAULT_POLL = {
+  dbz: 0,
+  pokemon: 0,
+  naruto: 0,
+  onepiece: 0,
+  deathnote: 0,
+  other: 0,
+};
 
+// GET poll results
 export async function GET() {
-  const userChoice = cookies().get("poll-choice")?.value ?? null;
-  return Response.json({ votes, userChoice });
-}
+  let poll = await redis.get(POLL_KEY);
 
-export async function POST(req) {
-  const { index } = await req.json();
-
-  const userChoice = cookies().get("poll-choice")?.value;
-
-  // If they already voted → remove old vote
-  if (userChoice !== undefined) {
-    votes[userChoice]--;
+  if (!poll) {
+    poll = DEFAULT_POLL;
+    await redis.set(POLL_KEY, poll);
   }
 
-  // Add new vote
-  votes[index]++;
-  cookies().set("poll-choice", index);
+  return NextResponse.json(poll);
+}
 
-  return Response.json({ votes, userChoice: index });
+// POST submit vote
+export async function POST(req) {
+  const { optionId } = await req.json();
+
+  if (!optionId || !DEFAULT_POLL.hasOwnProperty(optionId)) {
+    return NextResponse.json({ error: "Invalid option" }, { status: 400 });
+  }
+
+  let poll = await redis.get(POLL_KEY);
+
+  if (!poll) poll = { ...DEFAULT_POLL };
+
+  poll[optionId] += 1;
+
+  await redis.set(POLL_KEY, poll);
+
+  return NextResponse.json(poll);
 }

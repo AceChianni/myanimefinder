@@ -7,21 +7,21 @@
    Ghibli Color System
 -------------------------------------------------- */
 :root {
-  --bg: #AECFE5;      
-  --surface: #F7EBD2; 
-  --accent: #ECA7B2;  
-  --neutral: #E3B39A; 
-  --text: #6F8C57;    
-  --glow: #F9F2E5;    
+  --bg: #AECFE5;        /* Dewdrop Sky */
+  --surface: #F7EBD2;   /* Wildflower Cream */
+  --accent: #ECA7B2;    /* Bloom Blush */
+  --neutral: #E3B39A;   /* Petal Clay */
+  --text: #6F8C57;      /* Verdant Herb */
+  --glow: #F9F2E5;      /* Faerie Light */
 }
 
 html.dark {
-  --bg: #1F2B26;
-  --surface: #334438;
-  --accent: #C67A87;
-  --neutral: #B8A796;
-  --text: #D8D2C9;
-  --glow: #D8D2C9;
+  --bg: #1F2B26;        /* Forest Shadow */
+  --surface: #334438;   /* Misted Cedar */
+  --accent: #C67A87;    /* Spider Lily */
+  --neutral: #B8A796;   /* Fawn Stone */
+  --text: #D8D2C9;      /* Moon Fog */
+  --glow: #D8D2C9;      /* Pearlescent Highlight */
 }
 
 body {
@@ -32,7 +32,7 @@ body {
 }
 
 /* --------------------------------------------------
-   Panels
+   Soft Panels
 -------------------------------------------------- */
 .bg-panel-light {
   background-color: rgba(255,255,255,0.55);
@@ -51,71 +51,53 @@ body {
 }
 
 /* --------------------------------------------------
-   Floating Petals & Lilies
+   🌸 Falling Petals
 -------------------------------------------------- */
-/* Floating Petals Layer */
 .falling-layer {
-  pointer-events: none;
   position: fixed;
-  top: 0; 
+  top: 0;
   left: 0;
   width: 100vw;
-  height: 100%; /* <-- this allows full document height */ 
-  overflow: visible; /* allow petals to fall beyond */
-  z-index: 3; /* above background, below all UI */
+  height: 200vh; /* covers beyond screen */
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
 }
 
-/* Make UI sit above petals */
-nav, main, footer, section, header, .content-layer {
-  position: relative;
-  z-index: 10;
-}
-
-/* Soft Drift Petal Shapes */
 .petal {
   position: absolute;
-  width: 18px;
-  height: 18px;
-  opacity: 0.7;
+  width: 16px;
+  height: 16px;
   background: var(--accent);
-  border-radius: 50% 40% 65% 45%;
-  animation: petalFall var(--fall-duration, 16s) linear infinite,
-             petalSway var(--sway-duration, 6s) ease-in-out infinite;
+  border-radius: 50% 35% 65% 45%;
+  opacity: 0.75;
+  animation: fall 10s linear infinite, sway 4s ease-in-out infinite;
 }
 
-/* Dark Mode Spider Lily Glow */
 html.dark .petal {
   background: var(--accent);
   filter: drop-shadow(0 0 8px var(--accent));
-  opacity: 0.65;
+  opacity: 0.6;
 }
 
-/* Slow Ghibli Drift (Option A) */
-@keyframes petalFall {
-  0%   { transform: translateY(-10vh) rotate(0deg); opacity: 0.3; }
-  20%  { opacity: 0.9; }
-  100% { transform: translateY(120vh) rotate(120deg); opacity: 0.15; }
+@keyframes fall {
+  0%   { transform: translateY(-10vh) rotate(0deg); opacity: .4; }
+  50%  { opacity: .9; }
+  100% { transform: translateY(120vh) rotate(140deg); opacity: .2; }
 }
 
-@keyframes petalSway {
-  0%,100% { transform: translateX(0); }
-  50%     { transform: translateX(30px); }
+@keyframes sway {
+  0%,100% { transform: translateX(0px); }
+  50%     { transform: translateX(22px); }
 }
 
-
-/* Scrollbar */
-.custom-scrollbar::-webkit-scrollbar { width: 6px; }
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--accent), var(--neutral));
-  border-radius: 6px;
-}
 /* --------------------------------------------------
-   Fireflies
+   ✨ Fireflies
 -------------------------------------------------- */
 .firefly-layer {
+  pointer-events: none;
   position: fixed;
   inset: 0;
-  pointer-events: none;
   z-index: 2;
 }
 
@@ -140,4 +122,13 @@ html.dark .petal {
 @keyframes float {
   0% { transform: translateY(0vh) translateX(0vw); }
   100% { transform: translateY(-20vh) translateX(8vw); }
+}
+
+/* --------------------------------------------------
+   Scrollbar
+-------------------------------------------------- */
+.custom-scrollbar::-webkit-scrollbar { width: 6px; }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--accent), var(--neutral));
+  border-radius: 6px;
 }
