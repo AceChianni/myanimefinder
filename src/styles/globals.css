@@ -1,41 +1,143 @@
+/* globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
+/* --------------------------------------------------
+   Ghibli Color System
+-------------------------------------------------- */
+:root {
+  --bg: #AECFE5;      
+  --surface: #F7EBD2; 
+  --accent: #ECA7B2;  
+  --neutral: #E3B39A; 
+  --text: #6F8C57;    
+  --glow: #F9F2E5;    
 }
+
+html.dark {
+  --bg: #1F2B26;
+  --surface: #334438;
+  --accent: #C67A87;
+  --neutral: #B8A796;
+  --text: #D8D2C9;
+  --glow: #D8D2C9;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition: background-color 0.7s ease, color 0.7s ease;
+  min-height: 100vh;
+}
+
+/* --------------------------------------------------
+   Panels
+-------------------------------------------------- */
+.bg-panel-light {
+  background-color: rgba(255,255,255,0.55);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(180, 140, 150, 0.25);
+}
+
+.bg-panel-dark {
+  background-color: rgba(255,255,255,0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.rounded-organic {
+  border-radius: 1.6rem 1.9rem 1.4rem 2rem;
+}
+
+/* --------------------------------------------------
+   Floating Petals & Lilies
+-------------------------------------------------- */
+/* Floating Petals Layer */
+.falling-layer {
+  pointer-events: none;
+  position: fixed;
+  top: 0; 
+  left: 0;
+  width: 100vw;
+  height: 100%; /* <-- this allows full document height */ 
+  overflow: visible; /* allow petals to fall beyond */
+  z-index: 3; /* above background, below all UI */
+}
+
+/* Make UI sit above petals */
+nav, main, footer, section, header, .content-layer {
+  position: relative;
+  z-index: 10;
+}
+
+/* Soft Drift Petal Shapes */
+.petal {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  opacity: 0.7;
+  background: var(--accent);
+  border-radius: 50% 40% 65% 45%;
+  animation: petalFall var(--fall-duration, 16s) linear infinite,
+             petalSway var(--sway-duration, 6s) ease-in-out infinite;
+}
+
+/* Dark Mode Spider Lily Glow */
+html.dark .petal {
+  background: var(--accent);
+  filter: drop-shadow(0 0 8px var(--accent));
+  opacity: 0.65;
+}
+
+/* Slow Ghibli Drift (Option A) */
+@keyframes petalFall {
+  0%   { transform: translateY(-10vh) rotate(0deg); opacity: 0.3; }
+  20%  { opacity: 0.9; }
+  100% { transform: translateY(120vh) rotate(120deg); opacity: 0.15; }
+}
+
+@keyframes petalSway {
+  0%,100% { transform: translateX(0); }
+  50%     { transform: translateX(30px); }
+}
+
+
+/* Scrollbar */
+.custom-scrollbar::-webkit-scrollbar { width: 6px; }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 200, 100, 0.6);
+  background: linear-gradient(180deg, var(--accent), var(--neutral));
   border-radius: 6px;
 }
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
+/* --------------------------------------------------
+   Fireflies
+-------------------------------------------------- */
+.firefly-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
 }
 
-/* Radiant Magic Float Animation */
-@keyframes sparkleFloat {
-  0%   { transform: translateY(0px) scale(1); }
-  50%  { transform: translateY(-6px) scale(1.035); }
-  100% { transform: translateY(0px) scale(1); }
+.firefly {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  opacity: 0;
+  background: radial-gradient(circle, var(--glow), transparent);
+  animation:
+    glow 3s ease-in-out infinite alternate,
+    float 12s linear infinite;
 }
 
-/* Background star shimmer behind hover card */
-@keyframes starDrift {
-  0% { transform: translateY(0px) translateX(0px); opacity: 0.4; }
-  50% { transform: translateY(-12px) translateX(6px); opacity: 0.85; }
-  100% { transform: translateY(0px) translateX(0px); opacity: 0.4; }
+@keyframes glow {
+  0% { opacity: 0.1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.7); }
+  100% { opacity: 0.2; transform: scale(1); }
 }
 
-/* Custom glowing scrollbar */
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #ffd97a, #ffb347);
-  border-radius: 999px;
-}
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
+@keyframes float {
+  0% { transform: translateY(0vh) translateX(0vw); }
+  100% { transform: translateY(-20vh) translateX(8vw); }
 }

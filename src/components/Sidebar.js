@@ -1,84 +1,78 @@
 // src/components/Sidebar.js
 "use client";
-import styles from "@/styles/sidebars.module.css";
 
-const Sidebar = () => (
-  <div className={`${styles.sidebar}`}>
-    <h3 className={styles.sidebarTitle}>Helpful Links</h3>
-    <ul className="space-y-2">
-      {/* Link to an Anime Streaming Platform */}
-      <li className={styles.sidebarItem}>
-        <a
-          href="https://www.crunchyroll.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`${styles.sidebarItem} hover:text-blue-800`}
-        >
-          Watch Anime on Crunchyroll
-        </a>
-      </li>
+export default function Sidebar() {
+  const links = [
+    { label: "Watch Anime on Crunchyroll", href: "https://www.crunchyroll.com/" },
+    { label: "Latest Anime News", href: "https://www.animenewsnetwork.com/" },
+    { label: "Explore Cosplay Ideas", href: "https://www.cosplay.com/" },
+    { label: "Anime Community Forums", href: "https://myanimelist.net/forum/" },
+    { label: "Cosplay Tutorials (YouTube)", href: "https://www.youtube.com/results?search_query=cosplay+tutorials" },
+    { label: "Collect Merch (GoodSmile)", href: "https://www.goodsmile.info/" },
+  ];
 
-      {/* Link to Anime News and Updates */}
-      <li className={styles.sidebarItem}>
-        <a
-          href="https://www.animenewsnetwork.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`${styles.sidebarItem} hover:text-blue-800`}
-        >
-          Latest Anime News
-        </a>
-      </li>
+  return (
+    <>
+      <h3 className="text-lg font-serif text-center mb-4 opacity-90">Helpful Links</h3>
 
-      {/* Link to Cosplay Ideas */}
-      <li className={styles.sidebarItem}>
-        <a
-          href="https://www.cosplay.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`${styles.sidebarItem} hover:text-blue-800`}
-        >
-          Explore Cosplay Ideas
-        </a>
-      </li>
+      <ul className="space-y-3">
+        {links.map(({ label, href }) => (
+          <li key={href}>
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-center px-4 py-2 rounded-organic
+              bg-white/70 dark:bg-white/5
+              border border-[var(--shadow)] dark:border-[var(--nightshadow)]
+              hover:bg-[var(--rosewood)] hover:text-white
+              dark:hover:bg-[var(--spiderlily)] dark:hover:text-white
+              shadow-sm hover:shadow-[0_0_12px_rgba(200,160,170,0.45)]
+              transition-all duration-300"
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
 
-      {/* Link to Anime Fan Forums */}
-      <li className={styles.sidebarItem}>
-        <a
-          href="https://myanimelist.net/forum/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`${styles.sidebarItem} hover:text-blue-800`}
-        >
-          Join Anime Discussions
-        </a>
-      </li>
 
-      {/* Link to Cosplay Tutorials */}
-      <li className={styles.sidebarItem}>
-        <a
-          href="https://www.youtube.com/results?search_query=cosplay+tutorials"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`${styles.sidebarItem} hover:text-blue-800`}
-        >
-          Watch Cosplay Tutorials
-        </a>
-      </li>
+// "use client";
 
-      {/* Link to Popular Anime Merchandise */}
-      <li className={styles.sidebarItem}>
-        <a
-          href="https://www.goodsmile.info/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`${styles.sidebarItem} hover:text-blue-800`}
-        >
-          Shop Anime Merchandise
-        </a>
-      </li>
-    </ul>
-  </div>
-);
+// export default function Sidebar() {
+//   const links = [
+//     { label: "Watch Anime on Crunchyroll", href: "https://www.crunchyroll.com/" },
+//     { label: "Latest Anime News", href: "https://www.animenewsnetwork.com/" },
+//     { label: "Explore Cosplay Ideas", href: "https://www.cosplay.com/" },
+//     { label: "Anime Community Forums", href: "https://myanimelist.net/forum/" },
+//     { label: "Cosplay Tutorials (YouTube)", href: "https://www.youtube.com/results?search_query=cosplay+tutorials" },
+//     { label: "Collect Merch (GoodSmile)", href: "https://www.goodsmile.info/" },
+//   ];
 
-export default Sidebar;
+//   return (
+//     <div className="rounded-organic p-6 backdrop-blur-xl
+//       bg-petal/70 dark:bg-ink/60 
+//       border border-mist/50 dark:border-emberleaf/40 
+//       shadow-soft">
+//       <h3 className="text-lg font-serif text-center mb-4 opacity-90">Helpful Links</h3>
+//       <ul className="space-y-3">
+//         {links.map(({ label, href }) => (
+//           <li key={href}>
+//             <a
+//               href={href} target="_blank" rel="noopener noreferrer"
+//               className="block text-center px-4 py-2 rounded-organic
+//               bg-white/60 dark:bg-white/5
+//               hover:bg-white/80 dark:hover:bg-white/10
+//               transition"
+//             >
+//               {label}
+//             </a>
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// }

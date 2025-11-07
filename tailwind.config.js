@@ -1,29 +1,34 @@
-/** @type {import('tailwindcss').Config} */
+// tailwind.config.js
 module.exports = {
   darkMode: "class",
   content: [
-    "./src/app/**/*.{js,ts,jsx,tsx}",
-    "./src/components/**/*.{js,ts,jsx,tsx}",
-    "./src/styles/**/*.{css}"
+    "./src/app/**/*.{js,jsx,ts,tsx}",
+    "./src/components/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {
       colors: {
-        // Light Mode — Moonlight Rose
-        roseCream: "#F8EFEA",
-        rosePetal: "#F2D3D0",
-        roseBrown: "#8A5B55",
-        roseShadow: "rgba(167, 116, 104, 0.3)",
+        /* LIGHT MODE — Hydrangea Morning */
+        blossom: "#E8E6F2",    // main background (soft lavender-blue)
+        cloudpetal: "#F7F4FB", // card surface
+        inkberry: "#3F3351",   // text (soft purple-gray)
+        lilacmist: "#D9D3E8",  // borders / UI wash
+        morninggold: "#F3E8C9",// highlight glow
 
-        // Dark Mode — Starry Twilight
-        twilight: "#0B0A10",
-        starlight: "#EDEAFF",
-        moonLavender: "#C3B6FF",
-        nightShadow: "rgba(255, 255, 255, 0.15)",
+        /* DARK MODE — Temple + Spider Lily */
+        twilight: "#1C1B1F",   // page background (deep stone)
+        bark: "#2C2A2F",       // card surface (brown-tinted gray)
+        starlight: "#E5DDE0",  // text (dusty rose-beige)
+        spiderlily: "#C0394A", // accent (vivid red)
+        emberroot: "#5F4A4E",  // border warmth
       },
-      fontFamily: {
-        serif: ["Playfair Display", "serif"],
-        sans: ["Inter", "sans-serif"],
+      boxShadow: {
+        soft: "0 4px 12px rgba(0,0,0,0.18)",
+        glow: "0 0 18px rgba(240,210,255,0.55)", // light mode dreamy glow
+        shrine: "0 0 18px rgba(192,57,74,0.45)", // dark mode spider lily glow
+      },
+      borderRadius: {
+        organic: "1.6rem 1.85rem 1.45rem 2rem",
       },
     },
   },

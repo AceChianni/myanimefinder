@@ -1,49 +1,37 @@
+
 // src/components/Slideshow.js
-// src/components/Slideshow.js
-import { useEffect, useState } from "react";
+"use client";
+import { useState, useEffect } from "react";
 import { fetchTopAnime } from "@/lib/fetchAnime";
-import styles from "@/styles/slideshow.module.css";
 import Image from "next/image";
 
-const Slideshow = () => {
-  const [animeList, setAnimeList] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
+export default function Slideshow() {
+  const [anime, setAnime] = useState([]);
+  const [i, setI] = useState(0);
 
+  useEffect(() => { fetchTopAnime().then(setAnime); }, []);
   useEffect(() => {
-    fetchTopAnime().then((animeData) => {
-      setAnimeList(animeData);
-    });
-  }, []);
+    if (!anime.length) return;
+    const cycle = setInterval(() => setI(n => (n+1)%anime.length), 4000);
+    return () => clearInterval(cycle);
+  }, [anime]);
 
-  useEffect(() => {
-    if (animeList.length > 0) {
-      const interval = setInterval(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % animeList.length);
-      }, 5000); // Change slide every 5 seconds
-      return () => clearInterval(interval);
-    }
-  }, [animeList]);
-
-  if (animeList.length === 0) return <div>Loading...</div>;
+  if (!anime.length) return <div className="opacity-60 text-center">Loading…</div>;
 
   return (
-    <div className={styles.slideshowContainer}>
+    <div className="relative w-full aspect-[3/4] rounded-organic overflow-hidden shadow-soft">
       <Image
-        src={
-          animeList[currentIndex]?.images?.webp?.large_image_url ||
-          "https://via.placeholder.com/500x300?text=No+Image+Available" // Placeholder image if no image URL is available
-        }
-        alt={animeList[currentIndex]?.title || "Anime Image"}
-        className={styles.slideshowImage}
-        width={500}
-        height={300}
-        priority
+        src={anime[i].images.jpg.large_image_url}
+        alt={anime[i].title}
+        fill
+        className="object-cover transition duration-700 ease-dreamy"
       />
-      <div className={styles.slideshowCaption}>
-        {animeList[currentIndex]?.title || "Loading..."}
+      {/* Light beam */}
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_top,rgba(255,255,230,0.45),transparent_70%)]" />
+      <div className="absolute bottom-3 left-3 text-xs px-3 py-1 rounded-organic
+      bg-rosewood/50 dark:bg-ink/70 text-blossom dark:text-lilystem">
+        {anime[i].title}
       </div>
     </div>
   );
-};
-
-export default Slideshow;
+}

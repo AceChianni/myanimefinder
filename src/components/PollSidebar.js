@@ -1,283 +1,73 @@
 // // src/components/PollSidebar.js
-// "use client";
-// import React, { useState, useEffect } from "react";
-// import styles from "@/styles/sidebars.module.css";
-
-// const PollSidebar = () => {
-//   const [selectedPoll, setSelectedPoll] = useState(null);
-//   const [votes, setVotes] = useState([0, 0, 0, 0, 0, 0]);
-//   const [submitted, setSubmitted] = useState(false);
-//   const [loading, setLoading] = useState(false);
-//   const [error, setError] = useState(null);
-
-//   const pollOptions = [
-//     { id: 1, label: "Dragon Ball Z" },
-//     { id: 2, label: "Pokemon" },
-//     { id: 3, label: "Naruto" },
-//     { id: 4, label: "One Piece" },
-//     { id: 5, label: "Death Note" },
-//     { id: 6, label: "Other" },
-//   ];
-
-//   const fetchPollResults = async () => {
-//     setLoading(true);
-//     try {
-//       const response = await fetch("/api/poll");
-//       if (response.ok) {
-//         const data = await response.json();
-//         setVotes(data.votes || [0, 0, 0, 0, 0, 0]);
-//         setError(null);
-//       } else {
-//         throw new Error("Failed to fetch poll results");
-//       }
-//     } catch (error) {
-//       console.error("Error fetching poll results:", error);
-//       setError("Could not fetch poll results. Please try again.");
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   useEffect(() => {
-//     fetchPollResults();
-//   }, []);
-
-//   const handleVote = (index) => {
-//     if (!submitted) {
-//       setSelectedPoll(index + 1);
-//     }
-//   };
-
-//   const handleSubmit = async () => {
-//     if (selectedPoll !== null) {
-//       try {
-//         const response = await fetch("/api/poll", {
-//           method: "POST",
-//           headers: { "Content-Type": "application/json" },
-//           body: JSON.stringify({ optionIndex: selectedPoll - 1 }),
-//         });
-
-//         if (response.ok) {
-//           setSubmitted(true);
-//           await fetchPollResults();
-//         } else {
-//           console.error("Failed to submit vote:", await response.text());
-//         }
-//       } catch (error) {
-//         console.error("Error submitting vote:", error);
-//       }
-//     } else {
-//       alert("Please select an option before submitting.");
-//     }
-//   };
-
-//   const resetPoll = async () => {
-//     setSubmitted(false);
-//     setSelectedPoll(null);
-//     await fetchPollResults();
-//   };
-
-//   const totalVotes = votes.reduce((acc, vote) => acc + vote, 0) || 0;
-//   const getPercentage = (votesForOption) =>
-//     totalVotes > 0 ? Math.round((votesForOption / totalVotes) * 100) : 0;
-
-//   return (
-//     <div className={styles.pollSidebar}>
-//       {error && <div className={styles.errorMessage}>{error}</div>}
-//       {loading ? (
-//         <div>Loading...</div>
-//       ) : submitted ? (
-//         <div className={styles.voteResult}>
-//           <h3 className={styles.sidebarTitle}>Poll Results</h3>
-//           <div className={styles.voteChart}>
-//             {pollOptions.map((option, index) => (
-//               <div key={option.id} className={styles.voteBar}>
-//                 <span className={styles.barLabel}>
-//                   {option.label} ({votes[index]} votes)
-//                 </span>
-//                 <div
-//                   className={styles.bar}
-//                   style={{ width: `${getPercentage(votes[index])}%` }}
-//                 ></div>
-//               </div>
-//             ))}
-//           </div>
-//           <button onClick={resetPoll} className={styles.resetButton}>
-//             Reset Poll
-//           </button>
-//         </div>
-//       ) : (
-//         <>
-//           <h3 className={styles.sidebarTitle}>
-//             Choose Your Favorite Starter Anime!
-//           </h3>
-//           <div>
-//             {pollOptions.map((option, index) => (
-//               <div key={option.id} className={styles.pollSidebarItem}>
-//                 <input
-//                   type="radio"
-//                   name="animePoll"
-//                   value={option.id}
-//                   checked={selectedPoll === option.id}
-//                   onChange={() => handleVote(index)}
-//                   className="mr-2"
-//                 />
-//                 <label>{option.label}</label>
-//               </div>
-//             ))}
-//           </div>
-//           <button
-//             onClick={handleSubmit}
-//             className={styles.submitButton}
-//             disabled={selectedPoll === null}
-//           >
-//             Submit
-//           </button>
-//         </>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default PollSidebar;
 "use client";
-import React, { useState, useEffect } from "react";
-import styles from "@/styles/sidebars.module.css";
+import { useState, useEffect } from "react";
 
-const PollSidebar = () => {
-  const [selectedPoll, setSelectedPoll] = useState(null);
-  const [votes, setVotes] = useState([0, 0, 0, 0, 0, 0]);
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+const OPTIONS = [
+  "Dragon Ball Z",
+  "Pokemon",
+  "Naruto",
+  "One Piece",
+  "Death Note",
+  "Other",
+];
 
-  const pollOptions = [
-    { id: 1, label: "Dragon Ball Z" },
-    { id: 2, label: "Pokemon" },
-    { id: 3, label: "Naruto" },
-    { id: 4, label: "One Piece" },
-    { id: 5, label: "Death Note" },
-    { id: 6, label: "Other" },
-  ];
-
-  const fetchPollResults = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch("/api/poll");
-      if (response.ok) {
-        const data = await response.json();
-        setVotes(data.votes || [0, 0, 0, 0, 0, 0]);
-        setError(null);
-      } else {
-        throw new Error("Failed to fetch poll results");
-      }
-    } catch (error) {
-      console.error("Error fetching poll results:", error);
-      setError("Could not fetch poll results. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
+export default function PollSidebar() {
+  const [votes, setVotes] = useState([]);
+  const [selected, setSelected] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchPollResults();
+    fetch("/api/poll")
+      .then(res => res.json())
+      .then(data => {
+        setVotes(data.votes || Array(OPTIONS.length).fill(0));
+        setSelected(data.userChoice ?? null);
+        setLoading(false);
+      });
   }, []);
 
-  const handleVote = (index) => {
-    if (!submitted) {
-      setSelectedPoll(pollOptions[index].id); // Map to correct ID
-    }
+  const submitVote = async (index) => {
+    const response = await fetch("/api/poll", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ index }),
+    });
+    const data = await response.json();
+    setVotes(data.votes);
+    setSelected(index);
   };
 
-  const handleSubmit = async () => {
-    if (selectedPoll !== null) {
-      try {
-        const response = await fetch("/api/poll", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ optionIndex: selectedPoll }), // Send selectedPoll directly
-        });
+  if (loading) return <p>Loading poll...</p>;
 
-        if (response.ok) {
-          setSubmitted(true);
-          await fetchPollResults();
-        } else {
-          console.error("Failed to submit vote:", await response.text());
-        }
-      } catch (error) {
-        console.error("Error submitting vote:", error);
-      }
-    } else {
-      alert("Please select an option before submitting.");
-    }
-  };
-
-  const resetPoll = async () => {
-    setSubmitted(false);
-    setSelectedPoll(null);
-    await fetchPollResults();
-  };
-
-  const totalVotes = votes.reduce((acc, vote) => acc + vote, 0) || 0;
-  const getPercentage = (votesForOption) =>
-    totalVotes > 0 ? Math.round((votesForOption / totalVotes) * 100) : 0;
+  const total = votes.reduce((a, b) => a + b, 0);
 
   return (
-    <div className={styles.pollSidebar}>
-      {error && <div className={styles.errorMessage}>{error}</div>}
-      {loading ? (
-        <div>Loading...</div>
-      ) : submitted ? (
-        <div className={styles.voteResult}>
-          <h3 className={styles.sidebarTitle}>Poll Results</h3>
-          <div className={styles.voteChart}>
-            {pollOptions.map((option, index) => (
-              <div key={option.id} className={styles.voteBar}>
-                <span className={styles.barLabel}>
-                  {option.label} ({votes[index]} votes)
-                </span>
-                <div
-                  className={styles.bar}
-                  style={{ width: `${getPercentage(votes[index])}%` }}
-                ></div>
-              </div>
-            ))}
-          </div>
-          <button onClick={resetPoll} className={styles.resetButton}>
-            Reset Poll
-          </button>
-        </div>
-      ) : (
-        <>
-          <h3 className={styles.sidebarTitle}>
-            Choose Your Favorite Starter Anime!
-          </h3>
-          <div>
-            {pollOptions.map((option, index) => (
-              <div key={option.id} className={styles.pollSidebarItem}>
-                <input
-                  type="radio"
-                  name="animePoll"
-                  value={option.id}
-                  checked={selectedPoll === option.id}
-                  onChange={() => handleVote(index)}
-                  className="mr-2"
-                />
-                <label>{option.label}</label>
-              </div>
-            ))}
-          </div>
+    <div className="space-y-6">
+      <h3 className="text-center text-lg font-serif opacity-85">Favorite Starter Anime?</h3>
+
+      {OPTIONS.map((label, i) => {
+        const pct = total ? votes[i] / total : 0;
+        return (
           <button
-            onClick={handleSubmit}
-            className={styles.submitButton}
-            disabled={selectedPoll === null}
+            key={i}
+            onClick={() => submitVote(i)}
+            className={`w-full flex items-center justify-between px-4 py-2 rounded-full transition text-sm
+              ${selected === i 
+                ? "bg-spiderlily text-white shadow-soft" 
+                : "bg-white/50 dark:bg-white/10 hover:bg-rosepetal/40 dark:hover:bg-spiderlily/40"}`}
           >
-            Submit
+            <span>{label}</span>
+
+            {/* Animated Petal Growth */}
+            <span className="relative w-10 h-10">
+              <div
+                className="absolute inset-0 bg-spiderlily/70 dark:bg-spiderlily rounded-full transition-all"
+                style={{ transform: `scale(${0.4 + pct * 0.9})` }}
+              />
+            </span>
           </button>
-        </>
-      )}
+        );
+      })}
     </div>
   );
-};
-
-export default PollSidebar;
+}
