@@ -15,12 +15,13 @@
   --glow: #F9F2E5;      /* Faerie Light */
 }
 
+
 html.dark {
   --bg: #1F2B26;        /* Forest Shadow */
-  --surface: #334438;   /* Misted Cedar */
-  --accent: #C67A87;    /* Spider Lily */
-  --neutral: #B8A796;   /* Fawn Stone */
-  --text: #D8D2C9;      /* Moon Fog */
+  --surface: #660074;   /* Plum Bark */
+  --accent: #C67A87;    /* Spider Lily (still works w/ plum) */
+  --neutral: #C8B4D5;   /* Lavender Clay (lighter for contrast) */
+  --text: #D8D2C9;      /* Moon Fog (soft, legible) */
   --glow: #D8D2C9;      /* Pearlescent Highlight */
 }
 
@@ -30,21 +31,41 @@ body {
   transition: background-color 0.7s ease, color 0.7s ease;
   min-height: 100vh;
 }
+/* Fade-In Up */
+@keyframes fadeUpSoft {
+  0% { opacity: 0; transform: translateY(18px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Ghibli Glow Hover */
+@keyframes ghibliGlow {
+  0% {
+    text-shadow:
+      0 0 0px rgba(255, 188, 216, 0),
+      0 0 0px rgba(255, 148, 196, 0);
+  }
+  100% {
+    text-shadow:
+      0 0 14px rgba(255, 188, 216, 0.65),
+      0 0 26px rgba(255, 120, 180, 0.35);
+  }
+}
 
 /* --------------------------------------------------
    Soft Panels
 -------------------------------------------------- */
 .bg-panel-light {
-  background-color: rgba(255,255,255,0.55);
+  background-color: rgba(241, 184, 255, 0.55);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(180, 140, 150, 0.25);
 }
 
 .bg-panel-dark {
-  background-color: rgba(255,255,255,0.05);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.12);
+  background-color: rgba(30, 22, 33, 0.65); /* Plum-shadow glass */
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(200, 180, 213, 0.28); /* Uses your NEW neutral */
 }
+
 
 .rounded-organic {
   border-radius: 1.6rem 1.9rem 1.4rem 2rem;
