@@ -1,47 +1,88 @@
 // src/components/PetalsGenerator.jsx
-"use client";
 
+"use client";
 import { useEffect } from "react";
 
-export default function PetalsGenerator() {
+export default function PetalGenerator() {
   useEffect(() => {
-    const createPetal = () => {
+    const layer = document.querySelector(".falling-layer");
+    if (!layer) return;
+
+    const PETAL_COUNT = 38; // visible but soft — was ~18 before
+
+    for (let i = 0; i < PETAL_COUNT; i++) {
       const petal = document.createElement("div");
       petal.className = "petal";
 
-      // Random horizontal start position
+      // random horizontal position
       petal.style.left = Math.random() * 100 + "vw";
 
-      // Random size variation
-      const size = 12 + Math.random() * 18;
-      petal.style.width = `${size}px`;
-      petal.style.height = `${size}px`;
+      // each petal has its own speed
+      const fallDuration = 9 + Math.random() * 7; // 9s → 16s range
+      const swayDuration = 3.5 + Math.random() * 3; // 3.5s → 6.5s range
 
-      // Random fall speed
-      const fallDuration = 8 + Math.random() * 10; // slower + more visible
-      petal.style.animationDuration = `${fallDuration}s, ${4 + Math.random() * 3}s`;
+      petal.style.animationDuration = `${fallDuration}s, ${swayDuration}s`;
 
-      // Soft depth layering
+      // depth layer (parallax)
       const depth = Math.random();
-      petal.style.zIndex = depth > 0.66 ? 4 : depth > 0.33 ? 3 : 2;
-      petal.style.opacity = depth > 0.66 ? 1 : depth > 0.33 ? 0.8 : 0.6;
+      const scale = 0.6 + depth * 0.8;
+      petal.style.transform = `scale(${scale})`;
+      petal.style.opacity = `${0.4 + depth * 0.5}`;
 
-      document.body.appendChild(petal);
-
-      // Remove after falling
-      setTimeout(() => {
-        petal.remove();
-      }, fallDuration * 1000);
-    };
-
-    // 🌸 Increase amount → lower interval number
-    const interval = setInterval(createPetal, 180);
-
-    return () => clearInterval(interval);
+      layer.appendChild(petal);
+    }
   }, []);
 
   return null;
 }
+
+
+
+
+
+// "use client";
+
+// import { useEffect } from "react";
+
+// export default function PetalsGenerator() {
+//   useEffect(() => {
+//     const createPetal = () => {
+//       const petal = document.createElement("div");
+//       petal.className = "petal";
+
+//       // Random horizontal start position
+//       petal.style.left = Math.random() * 100 + "vw";
+
+//       // Random size variation
+//       const size = 12 + Math.random() * 18;
+//       petal.style.width = `${size}px`;
+//       petal.style.height = `${size}px`;
+
+//       // Random fall speed
+//       const fallDuration = 8 + Math.random() * 10; // slower + more visible
+//       petal.style.animationDuration = `${fallDuration}s, ${4 + Math.random() * 3}s`;
+
+//       // Soft depth layering
+//       const depth = Math.random();
+//       petal.style.zIndex = depth > 0.66 ? 4 : depth > 0.33 ? 3 : 2;
+//       petal.style.opacity = depth > 0.66 ? 1 : depth > 0.33 ? 0.8 : 0.6;
+
+//       document.body.appendChild(petal);
+
+//       // Remove after falling
+//       setTimeout(() => {
+//         petal.remove();
+//       }, fallDuration * 1000);
+//     };
+
+//     // 🌸 Increase amount → lower interval number
+//     const interval = setInterval(createPetal, 180);
+
+//     return () => clearInterval(interval);
+//   }, []);
+
+//   return null;
+// }
 
 // // src/components/PetalsGenerator.jsx
 // "use client";
