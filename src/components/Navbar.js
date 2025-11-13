@@ -112,7 +112,7 @@ export default function Navbar() {
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/quiz", label: "Quiz" },
-    { href: "/anime", label: "Top Anime" },
+    { href: "/anime", label: "Search" },
     { href: "/contact", label: "Contact" },
   ];
 

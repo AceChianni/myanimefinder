@@ -13,26 +13,25 @@ export default function HomePage() {
       <Fireflies />
 
       {/* HERO Section */}
-      {/* HERO Section */}
-<section className="relative w-full h-[420px] md:h-[520px] lg:h-[620px] flex items-center justify-center overflow-hidden">
+<section className="relative w-full h-[260px] md:h-[320px] lg:h-[380px] flex items-center justify-center overflow-hidden">
 
   {/* Background Image */}
   <div 
-    className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-[1.12]"
+    className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-[1.08]"
     style={{ backgroundImage: `url('/studiog.jpg')` }}
   />
 
   {/* Soft Cinematic Blur + Depth Fade */}
-  <div className="absolute inset-0 backdrop-blur-[6px] bg-gradient-to-b from-[var(--surface)]/45 to-[var(--bg)]/92"></div>
+  <div className="absolute inset-0 backdrop-blur-[4px] bg-gradient-to-b from-[var(--surface)]/35 to-[var(--bg)]/95"></div>
 
   {/* Text Content */}
   <div className="relative z-10 text-center px-6 animate-[fadeUpSoft_1.1s_ease-out]">
     
     <h1
       className="
-        text-5xl md:text-6xl font-serif font-bold select-none
+        text-4xl md:text-5xl font-serif font-bold select-none
         text-white
-        drop-shadow-[0_4px_28px_rgba(0,0,0,0.45)]
+        drop-shadow-[0_4px_20px_rgba(0,0,0,0.45)]
         transition-all duration-500
         hover:animate-[ghibliGlow_1.8s_ease-in-out_infinite_alternate]
       "
@@ -42,9 +41,9 @@ export default function HomePage() {
 
     <p
       className="
-        mt-4 max-w-2xl mx-auto text-lg select-none
+        mt-3 max-w-xl mx-auto text-base md:text-lg select-none
         text-white/90
-        drop-shadow-[0_2px_14px_rgba(0,0,0,0.45)]
+        drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)]
         animate-[fadeUpSoft_1.4s_ease-out]
       "
     >
@@ -54,7 +53,6 @@ export default function HomePage() {
   </div>
 
 </section>
-
 
 
 

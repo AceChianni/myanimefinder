@@ -14,15 +14,3 @@ export default function QuizRoutePage() {
     </div>
   );
 }
-
-// "use client";
-
-// import QuizPage from "@/components/QuizPage";
-
-// export default function QuizRoute() {
-//   return (
-//     <main className="min-h-screen pt-32 px-4 flex justify-center">
-//       <QuizPage />
-//     </main>
-//   );
-// }
